@@ -96,7 +96,7 @@ const Hero = () => {
           </div>
 
           {/* Button */}
-          <div className="absolute bottom-7 left-0 right-0 w-full z-20">
+          <div className="absolute bottom-24 left-0 right-0 w-full z-20">
             <a href="#about" className="w-fit mx-auto">
               <Button name="Demo Button" isBeam containerClass="sm:w-fit w-full sm:min-w-96" />
             </a>

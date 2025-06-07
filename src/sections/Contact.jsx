@@ -8,6 +8,7 @@ import { calculateSizes } from '../constants'
 import { useMediaQuery } from "react-responsive";
 import { Leva, useControls } from 'leva'
 import { socials } from "../constants";
+import DecryptedText from "../components/animations/DecryptedText";
 
 
 
@@ -29,15 +30,30 @@ const Contact = () => {
         <div className="contact-container">
           <h3 className="head-text my-4">Let's talk</h3>
           <p className="text-lg text-white-600">
-            Whether you’re looking to build a new website, improve your existing platform, or bring a unique project to
-            life, I’m here to help.
+            <DecryptedText
+            text="Whether you’re looking to build a new website, improve your existing platform, or bring a unique project to life, I’m here to help."
+            speed={100}
+            maxIterations={10}
+            characters="ABCD1234!?"
+            className="revealed"
+            parentClassName="all-letters"
+            encryptedClassName="encrypted"
+            />
           </p>
           <div className="mt-3">
               {socials.map((social) => (
                 <div key={social.id} className="copy-container mt-2">
                   <img className="w-6 h-6" src={social.img} alt={social.social_name} />
                   <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">
-                    {social.name}
+                    <DecryptedText
+                      text={social.name}
+                      speed={100}
+                      maxIterations={10}
+                      characters="ABCD1234!?"
+                      className="revealed"
+                      parentClassName="all-letters"
+                      encryptedClassName="encrypted"
+                    />
                   </p>
                   <a
                     className="flex gap-2 cursor-pointer text-white-600"

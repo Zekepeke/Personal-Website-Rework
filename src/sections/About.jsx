@@ -3,6 +3,7 @@ import { color } from "three/webgpu"
 import Button from "../components/Button"
 import { useState } from "react"
 import Folder from "../components/Folder"
+import RollingGallery from "../components/RollingGallery"
 
 const About = () => {
 
@@ -31,8 +32,8 @@ const About = () => {
 
             <div className="col-span-1 xl:row-span-3">
                 <div className="grid-container">
-                    <div style={{ height: '600px'}} className="flex justify-center items-center">
-                        <Folder size={2} color="#00d8ff"/>
+                    <div style={{ height: '300px'}} className="flex justify-center items-center">
+                        <RollingGallery autoplay={true} pauseOnHover={true} />
                     </div>
 
                     <div>
