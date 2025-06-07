@@ -5,6 +5,7 @@ import { useState } from "react"
 import Folder from "../components/Folder"
 import RollingGallery from "../components/RollingGallery"
 
+
 const About = () => {
 
     const [isCopied, setIsCopied] = useState(false);

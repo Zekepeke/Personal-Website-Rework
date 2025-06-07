@@ -309,3 +309,20 @@ export const navLinks = [
 
     },
 ];
+
+export const skills = [
+  'assets/javascript.svg',
+  'assets/java.svg',
+  'assets/react.svg',
+  'assets/html.svg',
+  'assets/css.svg',
+  'https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg',
+  'assets/tailwindcss.png',
+  'assets/sass.svg',
+  'assets/nodejs.svg',
+  'assets/nextjs.svg',
+  'assets/git.svg',
+  'assets/c-1.svg',
+  'assets/python.svg',
+  'assets/sqlite.svg'
+];
