@@ -16,7 +16,7 @@ const RollingGallery = ({
   images = images.length > 0 ? images : skills;
 
   const [isScreenSizeSm, setIsScreenSizeSm] = useState(
-    window.innerWidth <= 100
+    window.innerWidth <= 640
   );
   useEffect(() => {
     const handleResize = () => setIsScreenSizeSm(window.innerWidth <= 640);
@@ -27,8 +27,9 @@ const RollingGallery = ({
   // 3D geometry
   const cylinderWidth = isScreenSizeSm ? 1100 : 1800;
   const faceCount = images.length;
-  const faceWidth = (cylinderWidth / faceCount) * 1.2;
+  const faceWidth = isScreenSizeSm ? (cylinderWidth / faceCount) * 1.6 : (cylinderWidth / faceCount) * 1.2;
   const radius = cylinderWidth / (2 * Math.PI);
+  
 
   // Framer Motion
   const dragFactor = 0.05;
