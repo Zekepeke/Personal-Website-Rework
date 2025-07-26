@@ -28,15 +28,15 @@ body {
   }
 
   .nav-li {
-    @apply text-neutral-400 hover:text-white font-generalsans max-sm:hover:bg-black-500 max-sm:w-full max-sm:rounded-md py-2 max-sm:px-5;
+    @apply text-neutral-400 hover:text-white font-generalsans max-sm:hover:bg-black-500 max-sm:w-full max-sm:rounded-md py-2 max-sm:px-5 transition-all duration-300 ease-in-out;
   }
 
   .nav-li_a {
-    @apply text-lg md:text-base hover:text-white transition-colors;
+    @apply text-lg md:text-base hover:text-white transition-colors duration-300;
   }
 
   .nav-sidebar {
-    @apply absolute left-0 right-0 bg-black-200 backdrop-blur-sm transition-all duration-300 ease-in-out overflow-hidden z-20 mx-auto sm:hidden block;
+    @apply absolute left-0 right-0 bg-black-200 backdrop-blur-sm transition-all duration-300 ease-in-out overflow-hidden z-20 mx-auto sm:hidden block border-t border-black-300;
   }
 
   .text-gray_gradient {
@@ -194,5 +194,73 @@ body {
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+/* Navigation improvements */
+.nav-li.active {
+  color: black !important;
+  text-shadow: none !important;
+}
+
+.nav-li.active::after {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.nav-li::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: white;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+/* Mobile navigation improvements */
+@media (max-width: 640px) {
+  .nav-sidebar {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .nav-sidebar.max-h-screen {
+    max-height: 100vh;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav-ul {
+    gap: 0.5rem;
+  }
+  
+  .nav-li {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Performance optimizations */
+.nav-li, .nav-li_a {
+  will-change: transform, color, background-color;
+}
+
+/* Smooth scrolling for all browsers */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  .nav-li, .nav-li_a, .nav-sidebar {
+    transition: none !important;
   }
 }
