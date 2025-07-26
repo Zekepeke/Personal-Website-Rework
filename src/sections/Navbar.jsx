@@ -1,6 +1,8 @@
 import { useRef, useEffect, useState } from 'react'
 import { navLinks } from '../constants'
 
+
+
 const NavItems = ({
     items = navLinks,
     animationTime = 600,
@@ -9,16 +11,13 @@ const NavItems = ({
     particleR = 100,
     timeVariance = 300,
     colors = [1, 2, 3, 1, 2, 3, 1, 4],
-    initialActiveIndex = 0,
-    onNavClick,
+    initialActiveIndex = 0,  
 }) => {
     const containerRef = useRef(null)
     const navRef = useRef(null)
     const filterRef = useRef(null)
     const textRef = useRef(null)
     const [activeIndex, setActiveIndex] = useState(initialActiveIndex)
-    const [isScrolling, setIsScrolling] = useState(false)
-    
     const noise = (n = 1) => n / 2 - Math.random() * n
     const getXY = (
         distance,
@@ -93,48 +92,11 @@ const NavItems = ({
         Object.assign(textRef.current.style, styles)
         textRef.current.innerText = element.innerText
     }
-
-    // Function to determine which section is currently in view
-    const getCurrentSection = () => {
-        const sections = items.map(item => document.querySelector(item.href))
-        const scrollPosition = window.scrollY + window.innerHeight / 3
-
-        for (let i = sections.length - 1; i >= 0; i--) {
-            const section = sections[i]
-            if (section && section.offsetTop <= scrollPosition) {
-                return i
-            }
-        }
-        return 0
-    }
-
     const handleClick = (e, index) => {
-        e.preventDefault()
         const liEl = e.currentTarget
         if (activeIndex === index) return
-        
         setActiveIndex(index)
         updateEffectPosition(liEl)
-        
-        // Smooth scroll to section
-        const targetSection = document.querySelector(items[index].href)
-        if (targetSection) {
-            setIsScrolling(true)
-            targetSection.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            })
-            
-            // Reset scrolling state after animation
-            setTimeout(() => setIsScrolling(false), 1000)
-        }
-
-        // Call parent callback if provided
-        if (onNavClick) {
-            onNavClick()
-        }
-
-        // Particle effect
         if (filterRef.current) {
         const particles = filterRef.current.querySelectorAll(".particle")
         particles.forEach((p) => filterRef.current.removeChild(p))
@@ -148,7 +110,6 @@ const NavItems = ({
         makeParticles(filterRef.current)
         }
     }
-
     const handleKeyDown = (
         e,
         index
@@ -158,28 +119,12 @@ const NavItems = ({
         const liEl = e.currentTarget.parentElement
         if (liEl) {
             handleClick(
-            { currentTarget: liEl, preventDefault: () => {} },
+            { currentTarget: liEl },
             index
             )
         }
         }
     }
-
-    // Update active section based on scroll position
-    useEffect(() => {
-        const handleScroll = () => {
-            if (!isScrolling) {
-                const currentSection = getCurrentSection()
-                if (currentSection !== activeIndex) {
-                    setActiveIndex(currentSection)
-                }
-            }
-        }
-
-        window.addEventListener('scroll', handleScroll, { passive: true })
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [activeIndex, isScrolling, items])
-
     useEffect(() => {
         if (!navRef.current || !containerRef.current) return
         const activeLi = navRef.current.querySelectorAll("li")[
@@ -200,7 +145,6 @@ const NavItems = ({
         resizeObserver.observe(containerRef.current)
         return () => resizeObserver.disconnect()
     }, [activeIndex]) 
-
     return (
     <>
       {/* This effect is quite difficult to recreate faithfully using Tailwind, so a style tag is a necessary workaround */}
@@ -380,15 +324,19 @@ const NavItems = ({
   );
 };
 
+
 const Navbar = () => {
     const [isOpen, setOpen] = useState(false);
 
    const toggleMenu = () => setOpen((prevIsOpen) => !prevIsOpen);
-   const closeMenu = () => setOpen(false);
+   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90">
+        
+        
         <div className="max-w-7xl mx-auto">
+
             <div className="flex justify-between items-center py-5 mx-auto c-space">
                 <a href="/" className="text-neutral-400 font-bold text-xl hover:text-white 
                 transition-colors">
@@ -396,15 +344,15 @@ const Navbar = () => {
                 </a>
 
                 <button onClick={toggleMenu} 
-                    className="text-neutral-400 hover:text-white focus:outline-none sm:hidden flex transition-colors"
+                    className="text-neutral-400 hover:text-white focus:outline-none md:hidden flex"
                     aria-label="toggle menu"
                     >
                     <img src={isOpen ? "/assets/close.svg" : "/assets/menu.svg"} alt="toggle" className="w-6 h-6"/>
 
                 </button>
 
-                {/* For desktop navigation*/}
-                <nav className="sm:flex hidden">
+                {/* For mobile hiding the all the navlinks*/}
+                <nav className="md:flex hidden">
                     <NavItems />
                 </nav>
             </div>
@@ -413,7 +361,7 @@ const Navbar = () => {
         {/* For mobile */}
         <div className={`nav-sidebar ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
             <nav className="p-5">
-                <NavItems onNavClick={closeMenu} />
+                <NavItems onClick={closeMenu} />
             </nav>
       </div>
     </header>

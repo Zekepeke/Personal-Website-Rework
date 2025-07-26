@@ -24,10 +24,10 @@ const RollingGallery = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 3D geometry
-  const cylinderWidth = isScreenSizeSm ? 1100 : 1800;
+  // 3D geometry - Reduced zoom and improved mobile sizing
+  const cylinderWidth = isScreenSizeSm ? 1400 : 1800; // Increased from 1100 to 1400 for mobile
   const faceCount = images.length;
-  const faceWidth = isScreenSizeSm ? (cylinderWidth / faceCount) * 1.6 : (cylinderWidth / faceCount) * 1.2;
+  const faceWidth = isScreenSizeSm ? (cylinderWidth / faceCount) * 1.2 : (cylinderWidth / faceCount) * 1.2; // Reduced multiplier for mobile from 1.6 to 1.2
   const radius = cylinderWidth / (2 * Math.PI);
   
 
@@ -94,7 +94,7 @@ const RollingGallery = ({
   };
 
   return (
-    <div className="relative h-[500px] w-full overflow-hidden">
+    <div className="relative sm:h-[500px] h-[400px] w-full overflow-hidden"> {/* Reduced height on mobile from 500px to 400px */}
       <div
         className="absolute top-0 left-0 h-full w-[48px] z-10"
       />
@@ -135,7 +135,7 @@ const RollingGallery = ({
                 alt="gallery"
                 className="pointer-events-none h-[120px] w-[300px] rounded-[15px] border-[3px] border-white object-cover
                            transition-transform duration-300 ease-out group-hover:scale-105
-                           sm:h-[100px] sm:w-[220px]"
+                           sm:h-[110px] sm:w-[250px]" /* Increased mobile sizes from 100px/220px to 110px/250px */
               />
             </div>
           ))}

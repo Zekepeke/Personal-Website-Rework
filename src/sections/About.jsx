@@ -1,9 +1,14 @@
 import Globe from "react-globe.gl"
 import { color } from "three/webgpu"
 import Button from "../components/Button"
-import { useState } from "react"
-import Folder from "../components/Folder"
+import { useState, Suspense, useEffect, useRef} from 'react'
+import { navLinks } from '../constants'
+import { Canvas } from "@react-three/fiber"
+import Aztec from "../models/Aztec"
 import RollingGallery from "../components/RollingGallery"
+import CanvasLoader from "../components/CanvasLoader"
+import Sky from "../models/Sky"
+import Plane from "../models/Plane"
 
 
 const About = () => {
@@ -33,7 +38,8 @@ const About = () => {
 
             <div className="col-span-1 xl:row-span-3">
                 <div className="grid-container">
-                    <div style={{ height: '300px'}} className="flex justify-center items-center">
+                    <div style={{ height: '400px'}} className="flex justify-center items-center sm:h-[300px]"> {
+                    /* Increased mobile height from 300px to 400px */}
                         <RollingGallery autoplay={true} pauseOnHover={true} />
                     </div>
 
@@ -47,33 +53,37 @@ const About = () => {
             <div className="col-span-1 xl:row-span-4">
 
                 <div className="grid-container">
-                    <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
-                        <Globe
-                            height={326}
-                            width={326}
-                            backgroundColor="rgba(0, 0, 0, 0)"
-                            backgroundImageOpacity={0.5}
-                            showAtmosphere
-                            showGraticules
-                            globeImageUrl="https://unpkg.com/three-globe/example/img/earth-night.jpg"
-                            bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
-                            labelsData={[{
-                                lat: 40.6331,
-                                lng: -89,
-                                text: "Demo name",
-                                size: 100,
-                                color: 'red',
-                            }]}
-                        />
-                        
+                    <div className="rounded-3xl w-full aspect-square max-w-[326px] mx-auto flex justify-center items-center overflow-hidden bg-black-300">
+                        <Canvas
+                            camera={{ position: [0, 0, 5], fov: 75 }}
+                            style={{ width: '100%', height: '100%' }}
+                            gl={{ preserveDrawingBuffer: true }}
+                        >
+                            <Suspense fallback={<CanvasLoader />}>
+
+                            </Suspense>
+                            <ambientLight intensity={0.5} />
+                            <pointLight position={[10, 10, 10]} />
+                            <Sky isRotating={true} />
+                            <Plane
+                                isRotating={true}
+                                position = {[0, 1, 3]}
+                                scale = {[0.73,0.73,0.73]}
+                                rotation ={[0,1.6,0]}
+                            />
+                            <Aztec scale={0.005} position={[0, 0, 0]} rotation={[0, 10, 0]}/>
+                        </Canvas>
                     </div>
+
                     <div>
                         <p className="grid-headtext">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         </p>
                         <p className="grid-subtext">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <Button name="Contact Me" isBeam containerClass="w-full mt-10" />
+                        <a href="#contact">
+                            <Button name="Contact Me" isBeam containerClass="w-full mt-10" />
+                        </a>
                     </div>
                 </div>
 
