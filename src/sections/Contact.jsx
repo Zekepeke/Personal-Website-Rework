@@ -58,8 +58,9 @@ const Contact = () => {
                   <a
                     className="flex gap-2 cursor-pointer text-white-600"
                     href={social.link}
-                    target="_blank"
-                    rel="noreferrer"
+                    target={social.download ? "_self" : "_blank"}
+                    rel={social.download ? "" : "noreferrer"}
+                    download={social.download ? "Esequiel_Linares_resume.pdf" : undefined}
                   >
                     <p>{social.social_name}</p>
                     <img className="w-5 h-5" src="assets/checkout-arrow.svg" alt="arrow" />

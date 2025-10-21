@@ -308,6 +308,13 @@ export const navLinks = [
         link: 'https://github.com/Zekepeke',
 
     },
+    {
+        social_name: 'CV Download',
+        img: 'assets/copy.svg',
+        name: 'Download Resume',
+        link: '/assets/resume.pdf',
+        download: true,
+    },
 ];
 
 export const skills = [
