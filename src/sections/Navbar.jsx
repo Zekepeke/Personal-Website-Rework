@@ -67,7 +67,7 @@ const Navbar = () => {
 
           <button 
             onClick={toggleMenu} 
-            className="text-neutral-400 hover:text-white focus:outline-none lg:hidden flex"
+            className="text-neutral-400 hover:text-white focus:outline-none sm:hidden flex"
             aria-label="toggle menu"
           >
             <img 
@@ -78,7 +78,7 @@ const Navbar = () => {
           </button>
 
           {/* Desktop navigation - shows on lg and up */}
-          <nav className="lg:flex hidden">
+          <nav className="sm:flex hidden">
             <NavItems />
           </nav>
         </div>
@@ -88,7 +88,7 @@ const Navbar = () => {
       <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
         isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
       }`}>
-        <nav className="p-5 bg-black/95 min-h-screen flex items-center justify-center">
+        <nav className="p-5 bg-black/95  flex items-center justify-center">
           <NavItems onItemClick={closeMenu} />
         </nav>
       </div>

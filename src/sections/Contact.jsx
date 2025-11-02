@@ -24,7 +24,6 @@ const Contact = () => {
     <section className="c-space my-20" id="contact">
       <div className="relative min-h-screen flex items-center justify-center flex-col">
         <div className="absolute inset-0 min-h-screen w-full">
-          <img src="/assets/terminal.png" alt="terminal-bg" className="absolute inset-0 min-h-screen" />
         </div>
 
         <div className="contact-container">

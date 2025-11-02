@@ -16,12 +16,12 @@ export const navLinks = [
     },
     {
       id: 3,
-      name: 'Contact',
-      href: '#contact',
+      name: 'Projects',
+      href: '#projects',
     },
-  ];
+];
   
-  export const clientReviews = [
+export const clientReviews = [
     {
       id: 1,
       name: 'Emily Johnson',
@@ -257,37 +257,73 @@ export const navLinks = [
     };
   };
   
-  export const workExperiences = [
-    {
-      id: 1,
-      name: 'Framer',
-      pos: 'Lead Web Developer',
-      duration: '2022 - Present',
-      title: "Framer serves as my go-to tool for creating interactive prototypes. I use it to bring designs to  life, allowing stakeholders to experience the user flow and interactions before development.",
-      icon: '/assets/framer.svg',
-      animation: 'victory',
-    },
-    {
-      id: 2,
-      name: 'Figma',
-      pos: 'Web Developer',
-      duration: '2020 - 2022',
-      title: "Figma is my collaborative design platform of choice. I utilize it to work seamlessly with team members and clients, facilitating real-time feedback and design iterations. Its cloud-based.",
-      icon: '/assets/figma.svg',
-      animation: 'clapping',
-    },
-    {
-      id: 3,
-      name: 'Notion',
-      pos: 'Junior Web Developer',
-      duration: '2019 - 2020',
-      title: "Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.",
-      icon: '/assets/notion.svg',
-      animation: 'salute',
-    },
-  ];
+export const workExperiences = [
+  {
+    id: 1,
+    name: "J.P. Morgan Code for Good",
+    pos: "Hackathon Participant",
+    duration: "November 2025 - November 2025",
+    icon: "/assets/Logo_of_JPMorganChase_2024.svg",
+    iconBg: "#B3b3b3",
+    animation: "bounce",
+    points: [
+      "Selected to participate in J.P. Morgan’s Code for Good hackathon representing Purdue University.",
+      "Collaborating with a team of developers to create tech solutions addressing nonprofit challenges.",
+      "Applying experience in React, Node.js, and Python to develop scalable prototypes under time constraints.",
+      "Strengthening teamwork and communication skills through rapid collaboration with industry mentors.",
+    ],
+  },
+  {
+    id: 2,
+    name: "Purdue University",
+    pos: "Undergraduate Researcher – Multimodal Generative AI",
+    duration: "September 2025 – Present",
+    icon: "/assets/PU-V-Full-Rev-RGB.svg",
+    iconBg: "#B3b3b3",
+    animation: "victory",
+    points: [
+      "Led research on the Duet Dance dataset (10.3 hrs, 15 genres, 30 dancers, 10K+ annotations, 4K sequences).",
+      "Achieved up to 6× accuracy gains in duet generation models through novel training methods.",
+      "Built PyTorch pipelines for Text-to-Duet and Dance Accompaniment, improving results by 60–500%.",
+      "Analyzed multimodal embeddings across text, motion, and audio; identified 5 use cases for VR/XR interaction.",
+      "Contributed to the writing of a research paper exploring long-term dance motion generation.",
+    ],
+  },
+  {
+    id: 3,
+    name: "Capital One – First Gen Focus",
+    pos: "Participant (Top 10% Selected)",
+    duration: "May 2025 – July 2025",
+    icon: "/assets/Capital_One_logo.svg",
+    iconBg: "#B3b3b3",
+    animation: "clapping",
+    points: [
+      "Selected from over 1,000 applicants for an 8-week professional development program.",
+      "Completed 10+ hours of SWE, data structures, and LeetCode-based workshops.",
+      "Collaborated with mentors and peers to design 3 small projects including a multilayer perceptron model.",
+      "Improved model name-generation accuracy by 25% and output diversity by 40%.",
+      "Received mentorship on software engineering practices and career development.",
+    ],
+  },
+  {
+    id: 4,
+    name: "Self-Employed",
+    pos: "Programming Instructor",
+    duration: "August 2022 – June 2025",
+    icon: "/assets/noun-user-102183.svg",
+    iconBg: "#B3b3b3",
+    animation: "salute",
+    points: [
+      "Taught 15+ students programming fundamentals in Java and Python.",
+      "Developed structured lesson plans improving exam performance by 20%.",
+      "Enhanced student understanding of data structures and algorithmic thinking.",
+      "Provided individualized support leading to class averages above 90%.",
+      "Fostered critical thinking and independent project work among learners.",
+    ],
+  },
+];
 
-  export const socials =[
+export const socials =[
     {
         social_name: 'Gmail',
         img: 'assets/gmail.svg',
@@ -310,9 +346,9 @@ export const navLinks = [
     },
     {
         social_name: 'CV Download',
-        img: 'assets/copy.svg',
+        img: 'assets/resume.svg',
         name: 'Download Resume',
-        link: '/assets/resume.pdf',
+        link: '/assets/Esequiel_Linares_resume.pdf',
         download: true,
     },
 ];

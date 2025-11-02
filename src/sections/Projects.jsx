@@ -21,7 +21,7 @@ const Projects = () => {
         })
     };
     return (
-        <section className="c-space my-20" id="work">
+        <section className="c-space my-20" id="projects">
             <p className="head-text">Projects</p>
             <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full"> 
                 <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200">
@@ -64,20 +64,6 @@ const Projects = () => {
                             </div>
                     </div>
                 </div>
-                    <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
-                        <Canvas>
-                            <ambientLight intensity={1} />
-                            <directionalLight position={[10, 10, 5]} />
-                            <Center>
-                                <Suspense fallback={CanvasLoader}>
-                                    <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                                        <DemoComputer texture={currentProject.texture} />
-                                    </group>
-                                </Suspense>
-                            </Center>
-                        </Canvas>
-
-                    </div>
             </div>
         </section>
             
