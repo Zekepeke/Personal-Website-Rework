@@ -15,9 +15,9 @@ import Plane from "../models/Plane"
 
 
 const FolderItems = [
-    <img key="item1" src="/assets/react.svg" alt="React" className="h-6 w-6 rounded" />,
-    <img key="item2" src="/assets/html5.svg" alt="HTML5" className="h-6 w-6 rounded" />,
-    <img key="item3" src="/assets/typescript.svg" alt="TypeScript" className="h-6 w-6 rounded" />,
+    <img key="item1" src="/assets/IMG_2905.jpg"/>,
+    <img key="item2" src="/assets/IMG_2905.jpg"/>,
+    <img key="item3" src="/assets/IMG_2905.jpg"/>,
 ]
 
 // --- responsive sizing helpers ---
@@ -46,7 +46,6 @@ const About = () => {
   return (
     <section className="c-space my-20" id="about">
         <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
-
             <div className="col-span-1 xl:row-span-3 ">
                 <div className="grid-container h-full min-h-[420px] sm:min-h-[480px] md:min-h-[520px] flex flex-col justify-end overflow-visible pt-6 sm:pt-10">
                     <div className="w-full flex justify-center items-center mb-4">
@@ -96,7 +95,7 @@ const About = () => {
             <div className="col-span-1 xl:row-span-4">
 
                 <div className="grid-container">
-                    <div className="rounded-3xl w-full aspect-square max-w-[326px] mx-auto flex justify-center items-center overflow-hidden bg-black-300">
+                    <div className="rounded-3xl w-full aspect-square max-w-[326px] mx-auto flex justify-center items-center overflow-hidden bg-[#181818] relative">
                         <Canvas
                             camera={{ position: [0, -0.2, 5], fov: 75 }}
                             style={{ width: '100%', height: '100%' }}
@@ -115,23 +114,31 @@ const About = () => {
                             <Aztec scale={0.0058} position={[0, -0.22, 0]} rotation={[0, 10, 0]}/>
                         </Canvas>
                     </div>
+                    <div className="mt-5">
+                      <p className="grid-headtext">Exploration Through Code</p>
+                      <p className="grid-subtext">
+                        I treat code as art and research; experimenting with 3D and AI to turn curiosity into meaningful experiences.                      </p>
+                    </div>
                 </div>
 
             </div>
 
             <div className="xl:col-span-2 xl:row-span-3"> 
-                <div className="grid-container">
-
-                    <div> 
-                    <p className="grid-headtext">
-                            AHhHH.
-                            </p>
-                        <p className="grid-subtext">
-                            Lorem ipsum dolor d amet consectetur adipisicing elit.</p>
-                    </div>
+            <div className="grid-container">
+                <div> 
+                <p className="grid-headtext">
+                    My Mission & Values
+                </p>
+                <p className="grid-subtext space-y-2 list-disc marker:text-2xl marker:text-[#B3B3B3] pl-5">
+                    <li><strong>Build with intention.</strong>  I create code that is useful, beautiful, or kind, never meaningless complexity.</li>
+                    <li><strong>Stay curious.</strong> I seek ideas that challenge how we think, learn, and connect through technology.</li>
+                    <li><strong>Bridge art and logic.</strong> Creativity paired with precision transforms imagination into working systems.</li>
+                    <li><strong>Empower through empathy.</strong> Software must embrace accessibility and inclusion from the start.</li>
+                    <li><strong>Keep learning, keep shipping.</strong>  I continually build, test, and improve projects, delivering value at every stage of development.</li>
+                </p>
                 </div>
             </div>
-
+            </div>
             <div className="xl:col-span-1 xl:row-span-2">
                 <div className="grid-container">
                     <div className="space-y-2">
@@ -151,7 +158,7 @@ const About = () => {
                                 ease="power3.out"
                                 stagger={0.03}
                                 threshold={0.1}
-                                colorFrom="#2EFFA8"
+                                colorFrom="#1DB954"
                                 colorTo="#2EFFA8"
                                 triggerOnce={true}
                                 triggerOnHover={true}

@@ -50,6 +50,7 @@ const Footer = () => {
               size="sm"
               href="https://github.com/Zekepeke/Personal-Website-Rework"
               target="_blank"
+              className='text-blue-800'
             >
               open-source
             </Link>{" "}
