@@ -15,9 +15,9 @@ import Plane from "../models/Plane"
 
 
 const FolderItems = [
-    <img key="item1" src="/assets/IMG_2905.jpg"/>,
-    <img key="item2" src="/assets/IMG_2905.jpg"/>,
-    <img key="item3" src="/assets/IMG_2905.jpg"/>,
+    <img key="item1" src="/assets/Tyson1 Medium.jpeg" />,
+    <img key="item2" src="/assets/Tyson2 Medium.jpeg"/>,
+    <img key="item3" src="/assets/Tyson3 Medium.jpeg"/>,
 ]
 
 // --- responsive sizing helpers ---

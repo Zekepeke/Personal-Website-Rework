@@ -2,14 +2,19 @@ import React from 'react';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { workExperiences } from '../constants';
+import TextEffect from 'text-effect';
 
 const Work = () => {
   return (
     <section className="c-space my-20" id="work">
-      <p className="head-text">Work Experience</p>
-      <div className = "mt-3 flex flex-col gap-3 text-white-600">
+      <p className="head-text text-center">
+        <text className="text-[#FFFFFF] fill-foreground text-[70px]" width="500">
+              Work Experience
+        </text>
+      </p>
+      <div className = "mt-3 flex flex-col gap-3 text-[#FFFFFF] text-center">
               <p>
-              I've undertaken diverse roles, enhancing my skill set and collaborating with colleagues. Here's an overview of my professional experience:
+              I've undertaken diverse roles, enhancing my skill set and collaborating with colleagues.
               </p>
             </div>
         <div className = 'py-16'>

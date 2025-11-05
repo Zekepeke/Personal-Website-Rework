@@ -35,7 +35,23 @@ export const myProjects = [
       border: '0.2px solid #36201D',
       boxShadow: '0px 0px 60px 0px #AA3C304D',
     },
-    spotlight: '/assets/spotlight1.png',
+    img: [
+      {
+        id: "1",
+        img: "projects/reachy/reachy1.png",
+        height: 200,
+      },
+      {
+        id: "2",
+        img: "projects/reachy/reachy2.png",
+        height: 400,
+      },
+      {
+        id: "3",
+        img: "projects/reachy/reachy3.png",
+        height: 400,
+      },
+    ],
     tags: [
       { id: 1, name: 'Python', path: '/assets/python.svg' },
       { id: 2, name: 'FastAPI', path: '/assets/fastapi.svg' },
@@ -56,7 +72,18 @@ export const myProjects = [
       border: '0.2px solid #17293E',
       boxShadow: '0px 0px 60px 0px #2F6DB54D',
     },
-    spotlight: '/assets/spotlight2.png',
+    img: [
+      {
+        id: "1",
+        img: "projects/aircursor/aircursor1.png",
+        height: 200,
+      },
+      {
+        id: "2",
+        img: "projects/aircursor/aircursor3.png",
+        height: 300,
+      },
+    ],
     tags: [
       { id: 1, name: 'MediaPipe', path: '/assets/mediapipe.svg' },
       { id: 2, name: 'OpenCV', path: '/assets/opencv.svg' },
@@ -79,7 +106,18 @@ export const myProjects = [
       border: '0.2px solid rgba(208, 213, 221, 1)',
       boxShadow: '0px 0px 60px 0px rgba(35, 131, 96, 0.3)',
     },
-    spotlight: '/assets/spotlight3.png',
+    img: [
+      {
+        id: "1",
+        img: "projects/autograd/autograd1.png",
+        height: 400,
+      },
+      {
+        id: "2",
+        img: "projects/autograd/autograd2.png",
+        height: 350,
+      },
+    ],
     tags: [
       { id: 1, name: 'Python', path: '/assets/python.svg' },
       { id: 2, name: 'NumPy', path: '/assets/numpy.svg' },
@@ -100,7 +138,18 @@ export const myProjects = [
       border: '0.2px solid #0E2D58',
       boxShadow: '0px 0px 60px 0px #2F67B64D',
     },
-    spotlight: '/assets/spotlight4.png',
+    img: [
+      {
+        id: "1",
+        img: "projects/moldmany/moldmany2.png",
+        height: 300,
+      },
+      {
+        id: "2",
+        img: "projects/moldmany/moldmany3.png",
+        height: 300,
+      },
+    ],
     tags: [
       { id: 1, name: 'Python', path: '/assets/python.svg' },
       { id: 2, name: 'NLP', path: '/assets/nlp.svg' },
@@ -120,7 +169,28 @@ export const myProjects = [
       border: '0.2px solid #252262',
       boxShadow: '0px 0px 60px 0px #635BFF4D',
     },
-    spotlight: '/assets/spotlight5.png',
+    img: [
+      {
+        id: "1",
+        img: "projects/shop22/shop221.png",
+        height: 400,
+      },
+      {
+        id: "2",
+        img: "projects/shop22/shop222.png",
+        height: 350,
+      },
+      {
+        id: "3",
+        img: "projects/shop22/shop223.png",
+        height: 300,
+      },
+      {
+        id: "4",
+        img: "projects/shop22/shop224.png",
+        height: 400,
+      },
+    ],
     tags: [
       { id: 1, name: 'Next.js', path: '/assets/nextjs.svg' },
       { id: 2, name: 'TypeScript', path: '/assets/typescript.png' },
@@ -141,7 +211,18 @@ export const myProjects = [
       border: '0.2px solid #36201D',
       boxShadow: '0px 0px 60px 0px #AA3C304D',
     },
-    spotlight: '/assets/spotlight1.png',
+    img: [
+      {
+        id: "1",
+        img: "projects/zekeshot/zekeshot1.png",
+        height: 400,
+      },
+      {
+        id: "2",
+        img: "projects/zekeshot/zekeshot2.png",
+        height: 400,
+      }
+    ],
     tags: [
       { id: 1, name: 'Python', path: '/assets/python.svg' },
       { id: 2, name: 'Pygame', path: '/assets/pygame.svg' },
