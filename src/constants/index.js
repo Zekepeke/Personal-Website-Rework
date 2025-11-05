@@ -354,18 +354,31 @@ export const socials =[
 ];
 
 export const skills = [
-  'assets/javascript.svg',
-  'assets/java.svg',
-  'assets/react.svg',
-  'assets/html.svg',
-  'assets/css.svg',
-  'https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg',
-  'assets/tailwindcss.png',
-  'assets/sass.svg',
-  'assets/nodejs.svg',
-  'assets/nextjs.svg',
-  'assets/git.svg',
-  'assets/c-1.svg',
-  'assets/python.svg',
-  'assets/sqlite.svg'
+    //'Languages',
+    'skills/python.svg',
+    'skills/java.svg',
+    'skills/cpp.svg',
+    'skills/c.svg',
+    'skills/javascript.svg',
+    'skills/typescript.svg',
+    'skills/sql.svg',
+
+    // Frontend
+    'skills/css.svg',
+    'skills/sass.svg',
+    'skills/tailwindcss.png',
+    'skills/nextjs.svg',
+    // 'skills/react.svg', // add back when you include React visuals
+
+    //'Backend',
+    'skills/nodejs.svg',
+
+    // 'AI / ML'
+    'skills/pytorch.svg',
+    'skills/huggingface.svg',
+
+    //'DevOps & Tools',
+    'skills/git.svg',
+    'skills/docker.svg',
+    'skills/aws.svg',
 ];

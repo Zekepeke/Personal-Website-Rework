@@ -12,23 +12,17 @@ const RollingGallery = ({
   autoplay = false,
   pauseOnHover = false,
   images = [],
+  height = 340,
+  itemWidth = 160,
+  itemGap = 24,
+  radius: radiusProp = 390, // keep a constant depth so items don't explode in size as count grows
 }) => {
   images = images.length > 0 ? images : skills;
 
-  const [isScreenSizeSm, setIsScreenSizeSm] = useState(
-    window.innerWidth <= 640
-  );
-  useEffect(() => {
-    const handleResize = () => setIsScreenSizeSm(window.innerWidth <= 640);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // 3D geometry - Reduced zoom and improved mobile sizing
-  const cylinderWidth = isScreenSizeSm ? 1400 : 1800; // Increased from 1100 to 1400 for mobile
+  // --- 3D geometry: constant apparent size regardless of item count ---
   const faceCount = images.length;
-  const faceWidth = isScreenSizeSm ? (cylinderWidth / faceCount) * 1.2 : (cylinderWidth / faceCount) * 1.2; // Reduced multiplier for mobile from 1.6 to 1.2
-  const radius = cylinderWidth / (2 * Math.PI);
+  const faceWidth = itemWidth; // face width == card width => no overflow
+  const radius = radiusProp;   // do NOT grow with faceCount; prevents over-zoom
   
 
   // Framer Motion
@@ -94,7 +88,7 @@ const RollingGallery = ({
   };
 
   return (
-    <div className="relative sm:h-[500px] h-[400px] w-full overflow-hidden"> {/* Reduced height on mobile from 500px to 400px */}
+    <div className="relative w-full overflow-hidden" style={{ height }}>
       <div
         className="absolute top-0 left-0 h-full w-[48px] z-10"
       />
@@ -115,7 +109,7 @@ const RollingGallery = ({
           style={{
             transform: transform,
             rotateY: rotation,
-            width: cylinderWidth,
+            width: faceWidth + itemGap, // minimal width; faces are absolutely positioned
             transformStyle: "preserve-3d",
           }}
           className="flex min-h-[200px] cursor-grab items-center justify-center [transform-style:preserve-3d]"
@@ -123,9 +117,10 @@ const RollingGallery = ({
           {images.map((url, i) => (
             <div
               key={i}
-              className="group absolute flex h-fit items-center justify-center p-[8%] [backface-visibility:hidden] md:p-[6%]"
+              className="group absolute flex h-fit items-center justify-center [backface-visibility:hidden]"
               style={{
                 width: `${faceWidth}px`,
+                padding: `${itemGap / 2}px`,
                 transform: `rotateY(${(360 / faceCount) * i
                   }deg) translateZ(${radius}px)`,
               }}
@@ -133,9 +128,7 @@ const RollingGallery = ({
               <img
                 src={url}
                 alt="gallery"
-                className="pointer-events-none h-[120px] w-[300px] rounded-[15px] border-[3px] border-white object-cover
-                           transition-transform duration-300 ease-out group-hover:scale-105
-                           sm:h-[110px] sm:w-[250px]" /* Increased mobile sizes from 100px/220px to 110px/250px */
+                className="pointer-events-none w-full h-auto max-h-[80%] rounded-[15px] border-[3px] border-white object-contain transition-transform duration-300 ease-out group-hover:scale-105"
               />
             </div>
           ))}

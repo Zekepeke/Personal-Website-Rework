@@ -3,7 +3,6 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import { workExperiences } from '../constants';
 
-
 const Work = () => {
   return (
     <section className="c-space my-20" id="work">
@@ -29,21 +28,20 @@ const Work = () => {
                       />
                     </div>
                   }
-                  iconStyle={{
-                    background: experience.iconBg,
-                    boxShadow: "0 0 10px " + experience.iconBg,
-                  }}
+                  iconStyle={{ background: experience.iconBg}}
                   contentStyle={{
-                    background: "#121212",
-                    color: "#EAEAEA",
-                    border: "1px solid #2E2E2E",
-                    borderLeft: "4px solid " + experience.iconBg,
-                    boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.3)",
+                    background: '#181818',
+                    color: '#FFFFFF',
+                    border: '1px solid #282828',
+                    borderLeft: '4px solid ' + experience.iconBg,
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.35)'
                   }}
+                  contentArrowStyle={{ borderRight: '7px solid #181818' }}
                 >
                   <div>
-                    <h3 className="text-black text-xl font-poppins font-semibold">{experience.pos}</h3>
-                    <p className="text-black font-medium font-base" style={{ margin: 0 }}>
+                    <h3 className="text-white text-xl font-poppins font-semibold">{experience.pos}</h3>
+                    <p className="font-medium text-base" style={{ margin: 0, color: '#B3B3B3' }}>
                       {experience.name}
                     </p>
                   </div>
@@ -52,7 +50,7 @@ const Work = () => {
                     {experience.points?.map((point, index) => (
                       <li
                         key={`experience-point-${index}`}
-                        className="text-black-500/50 font-normal pl-1 text-sm"
+                        className="font-normal pl-1 text-sm" style={{ color: '#B3B3B3' }}
                       >
                         {point}
                       </li>
