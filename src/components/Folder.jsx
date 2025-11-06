@@ -139,6 +139,7 @@ const Folder = ({
                   ...(!open ? {} : { transform: transformStyle }),
                   backgroundColor: i === 0 ? paper1 : i === 1 ? paper2 : paper3,
                   borderRadius: "10px",
+                  overflow: "hidden",  
                 }}
               >
                 {item}
