@@ -1,8 +1,5 @@
 import Globe from "react-globe.gl"
-import { color } from "three/webgpu"
-import Button from "../components/Button"
 import Shuffle from "../components/Shuffle"
-import ASCIIText from "../components/ASCIIText"
 import Folder from "../components/Folder"
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas } from "@react-three/fiber"
@@ -63,14 +60,11 @@ const About = () => {
                       />
                     </div>
                     <div>
-                        <span className="relative block overflow-visible whitespace-nowrap h-16 sm:h-24 md:h-24">
-                            <ASCIIText
-                            text="I'm Zeke!"
-                            enableWaves={false}
-                            asciiFontSize={asciiFontSize}
-                            textFontSize={textFontSize}
-                            />
-                        </span>
+                        <div className="mt-16 sm:min-h-[100px] flex flex-col gap-3 head-text text-[#FFFFFF] text-center">
+                            <text className="text-[#FFFFFF] fill-foreground text-[70px]" width="500">
+                                I'm Zeke!
+                            </text>
+                        </div>
                         <p className="grid-headtext">
                             Building intelligent systems that make technology feel human.
                         </p>
