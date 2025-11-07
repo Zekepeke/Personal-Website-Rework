@@ -1,6 +1,5 @@
 import React from 'react'
-import { Navbar, Hero, Projects, About, Work } from './sections'
-import Footer from './components/footer'
+import { Navbar, Hero, Projects, About, Work, Footer } from './sections'
 
 const App = () => {
   return (
