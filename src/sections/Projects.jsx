@@ -60,7 +60,10 @@ export default function Projects() {
 
 function ProjectCard({ project, index, slideIndex, setSlideIndex }) {
   const onPress = () =>
-    slideIndex === index ? (window.location.href = project.href) : setSlideIndex(index);
+    slideIndex === index
+      ? 
+        window.open(project.href, "_blank", "noopener noreferrer")
+      : setSlideIndex(index);
 
   const animateFrom = "bottom";
 
@@ -83,7 +86,7 @@ function ProjectCard({ project, index, slideIndex, setSlideIndex }) {
           <a
             href={project.href}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             className="shrink-0 rounded-md px-1 py-0.5 text-sm text-[#b3b3b3] hover:text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#1db954]"
             aria-label={`Open ${project.title} on GitHub`}

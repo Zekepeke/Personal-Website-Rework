@@ -24,9 +24,7 @@ export const navLinks = [
 export const myProjects = [
   {
     title: 'Reachy Mini – Edge Video Server',
-    desc: 'A FastAPI + Uvicorn backend that streams live MJPEG from a Raspberry Pi 5 camera using Picamera2/libcamera. Built to power my DIY Reachy Mini HCI project with MediaPipe/OpenCV gesture recognition and future LLM/TTS integration.',
-    subdesc:
-      'Runs on Raspberry Pi with a clean REST API. Ready for MediaPipe + Torch hand/gesture recognition; designed for low-latency cloud–edge pipelines.',
+    desc: 'Engineered a low-latency edge video server on Raspberry Pi 5 using FastAPI/Uvicorn and Picamera2/libcamera to stream live MJPEG video. Designed for real-time gesture recognition with MediaPipe/OpenCV and scalable LLM/TTS integration, achieving sub-100 ms response times in cloud-edge pipelines.',
     href: 'https://github.com/Zekepeke/Reachy-Server-Project',
     texture: '/textures/project/project1.mp4',
     logo: '/assets/project-logo1.png',
@@ -36,34 +34,20 @@ export const myProjects = [
       boxShadow: '0px 0px 60px 0px #AA3C304D',
     },
     img: [
-      {
-        id: "1",
-        img: "projects/reachy/reachy1.png",
-        height: 200,
-      },
-      {
-        id: "2",
-        img: "projects/reachy/reachy2.png",
-        height: 400,
-      },
-      {
-        id: "3",
-        img: "projects/reachy/reachy3.png",
-        height: 400,
-      },
+      { id: "1", img: "projects/reachy/reachy1.jpeg", height: 200 },
+      { id: "2", img: "projects/reachy/reachy2.jpeg", height: 400 },
+      { id: "3", img: "projects/reachy/reachy3.jpeg", height: 400 },
     ],
     tags: [
-      { id: 1, name: 'Python', path: '/assets/python.svg' },
+      { id: 1, name: 'Python', path: 'skills/python.svg' },
       { id: 2, name: 'FastAPI', path: '/assets/fastapi.svg' },
       { id: 3, name: 'MediaPipe', path: '/assets/mediapipe.svg' },
       { id: 4, name: 'OpenCV', path: '/assets/opencv.svg' },
     ],
   },
   {
-    title: 'AirCursor – Gesture‑Controlled Cursor',
-    desc: 'Real‑time hand‑gesture recognition using MediaPipe and OpenCV to control the system cursor. Trained a CNN on 1,440 frames reaching ~95% accuracy and optimized for low‑latency interaction.',
-    subdesc:
-      'Live pipeline with NumPy/OpenCV and PyAutoGUI for cursor control. Focused on fast data processing and reproducible training.',
+    title: 'AirCursor – Gesture-Controlled Cursor',
+    desc: 'Developed a real-time hand-gesture recognition system using MediaPipe and OpenCV, training a CNN on 1,440 frames to ~95 % accuracy. Integrated PyAutoGUI for OS-level cursor control and optimized data pipelines for low-latency, frame-accurate interaction.',
     href: 'https://github.com/Zekepeke/Computer-Vision-Project',
     texture: '/textures/project/project2.mp4',
     logo: '/assets/project-logo2.png',
@@ -73,16 +57,8 @@ export const myProjects = [
       boxShadow: '0px 0px 60px 0px #2F6DB54D',
     },
     img: [
-      {
-        id: "1",
-        img: "projects/aircursor/aircursor1.png",
-        height: 200,
-      },
-      {
-        id: "2",
-        img: "projects/aircursor/aircursor3.png",
-        height: 300,
-      },
+      { id: "1", img: "projects/aircursor/aircursor1.jpeg", height: 200 },
+      { id: "2", img: "projects/aircursor/aircursor3.jpeg", height: 300 },
     ],
     tags: [
       { id: 1, name: 'MediaPipe', path: '/assets/mediapipe.svg' },
@@ -92,10 +68,8 @@ export const myProjects = [
     ],
   },
   {
-    title: 'Autograd – Tiny Reverse‑Mode Engine',
-    desc: 'A minimal scalar automatic differentiation engine written from scratch in Python. Builds a dynamic computation graph and supports `.backward()` with chain‑rule gradient propagation.',
-    subdesc:
-      'Educational PyTorch‑style autodiff: operator overloading (+, *, **), ReLU/tanh, topo‑sorted backprop, and gradient tracking.',
+    title: 'Autograd – Tiny Reverse-Mode Engine',
+    desc: 'Built a PyTorch-style automatic differentiation engine from scratch in Python, implementing reverse-mode backpropagation with operator overloading, dynamic computation graphs, and ReLU/tanh activation functions. Verified gradient correctness through analytical tests and micro-MLP experiments.',
     href: 'https://github.com/Zekepeke/autograd',
     texture: '/textures/project/project3.mp4',
     logo: '/assets/project-logo3.png',
@@ -107,16 +81,8 @@ export const myProjects = [
       boxShadow: '0px 0px 60px 0px rgba(35, 131, 96, 0.3)',
     },
     img: [
-      {
-        id: "1",
-        img: "projects/autograd/autograd1.png",
-        height: 400,
-      },
-      {
-        id: "2",
-        img: "projects/autograd/autograd2.png",
-        height: 350,
-      },
+      { id: "1", img: "projects/autograd/autograd1.jpeg", height: 400 },
+      { id: "2", img: "projects/autograd/autograd2.jpeg", height: 350 },
     ],
     tags: [
       { id: 1, name: 'Python', path: '/assets/python.svg' },
@@ -126,10 +92,8 @@ export const myProjects = [
     ],
   },
   {
-    title: 'moldmany – Character‑Level Bigram LM',
-    desc: 'A simple bigram language model that learns character‑to‑character transition probabilities and samples fun new “names.” Inspired by Karpathy’s makemore.',
-    subdesc:
-      'Pure‑Python training loop that builds vocabularies, counts transitions, and samples sequences—no DL frameworks required.',
+    title: 'moldmany – Character-Level Bigram LM',
+    desc: 'Implemented a pure-Python character-level Bigram language model inspired by Karpathy’s *makemore*. Built an end-to-end data pipeline to construct vocabularies, estimate transition probabilities, and generate synthetic words, providing a clean baseline for scaling to n-gram and neural models.',
     href: 'https://github.com/Zekepeke/moldmany',
     texture: '/textures/project/project4.mp4',
     logo: '/assets/project-logo4.png',
@@ -139,16 +103,8 @@ export const myProjects = [
       boxShadow: '0px 0px 60px 0px #2F67B64D',
     },
     img: [
-      {
-        id: "1",
-        img: "projects/moldmany/moldmany2.png",
-        height: 300,
-      },
-      {
-        id: "2",
-        img: "projects/moldmany/moldmany3.png",
-        height: 300,
-      },
+      { id: "1", img: "projects/moldmany/moldmany2.jpeg", height: 300 },
+      { id: "2", img: "projects/moldmany/moldmany3.jpeg", height: 300 },
     ],
     tags: [
       { id: 1, name: 'Python', path: '/assets/python.svg' },
@@ -157,10 +113,8 @@ export const myProjects = [
     ],
   },
   {
-    title: 'Shop22 – Payload/Next E‑commerce',
-    desc: 'A production‑ready e‑commerce app using Payload CMS + Next.js 14 with Stripe checkout, role‑based access, SEO, and a beautiful admin. Dockerized for easy development.',
-    subdesc:
-      'Implements secure payments via Stripe API, carts/orders, paywalls, and content layout builder; tuned for scalable deployments.',
+    title: 'Shop22 – Payload/Next E-commerce',
+    desc: 'Developed a full-stack e-commerce platform with Next.js 14, Payload CMS, and Stripe integration for secure transactions. Implemented RBAC, SEO optimization, and modular content builder, and containerized the app with Docker for reproducible deployments and scalable CI/CD pipelines.',
     href: 'https://github.com/Zekepeke/shop22',
     texture: '/textures/project/project5.mp4',
     logo: '/assets/project-logo5.png',
@@ -170,26 +124,10 @@ export const myProjects = [
       boxShadow: '0px 0px 60px 0px #635BFF4D',
     },
     img: [
-      {
-        id: "1",
-        img: "projects/shop22/shop221.png",
-        height: 400,
-      },
-      {
-        id: "2",
-        img: "projects/shop22/shop222.png",
-        height: 350,
-      },
-      {
-        id: "3",
-        img: "projects/shop22/shop223.png",
-        height: 300,
-      },
-      {
-        id: "4",
-        img: "projects/shop22/shop224.png",
-        height: 400,
-      },
+      { id: "1", img: "projects/shop22/shop221.jpeg", height: 400 },
+      { id: "2", img: "projects/shop22/shop222.jpeg", height: 350 },
+      { id: "3", img: "projects/shop22/shop223.jpeg", height: 300 },
+      { id: "4", img: "projects/shop22/shop224.jpeg", height: 400 },
     ],
     tags: [
       { id: 1, name: 'Next.js', path: '/assets/nextjs.svg' },
@@ -200,9 +138,7 @@ export const myProjects = [
   },
   {
     title: 'ZekeShot – Pixel Pygame Shooter',
-    desc: 'An arcade shooter built with Pygame where you blast upward through waves to collect more chickens. Includes quick‑start scripts and packaged requirements.',
-    subdesc:
-      'Focus on game feel and level progression; clean project structure and a simple asset pipeline.',
+    desc: 'Created a fast-paced retro shooter in Python using Pygame with smooth controls, progressive wave logic, and polished game feel. Designed modular level and asset systems and automated environment setup with packaged requirements for effortless testing and deployment.',
     href: 'https://github.com/Zekepeke/Zekeshot',
     texture: '/textures/project/project1.mp4',
     logo: '/assets/project-logo1.png',
@@ -212,16 +148,8 @@ export const myProjects = [
       boxShadow: '0px 0px 60px 0px #AA3C304D',
     },
     img: [
-      {
-        id: "1",
-        img: "projects/zekeshot/zekeshot1.png",
-        height: 400,
-      },
-      {
-        id: "2",
-        img: "projects/zekeshot/zekeshot2.png",
-        height: 400,
-      }
+      { id: "1", img: "projects/zekeshot/zekeshot1.jpeg", height: 400 },
+      { id: "2", img: "projects/zekeshot/zekeshot2.jpeg", height: 400 },
     ],
     tags: [
       { id: 1, name: 'Python', path: '/assets/python.svg' },
