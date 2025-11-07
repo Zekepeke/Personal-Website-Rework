@@ -60,8 +60,8 @@ const About = () => {
                       />
                     </div>
                     <div>
-                        <div className="mt-16 sm:min-h-[100px] flex flex-col gap-3 head-text text-[#FFFFFF] text-center">
-                            <text className="text-[#FFFFFF] fill-foreground text-[70px]" width="500">
+                        <div className="my-12 head-text text-[#FFFFFF] text-center">
+                            <text className="text-[#FFFFFF] fill-foreground text-[65px]" width="500">
                                 I'm Zeke!
                             </text>
                         </div>
