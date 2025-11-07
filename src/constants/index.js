@@ -175,21 +175,17 @@ export const myProjects = [
   };
   
 export const workExperiences = [
-  {
-    id: 1,
-    name: "J.P. Morgan Code for Good",
-    pos: "Hackathon Participant",
-    duration: "November 2025 - November 2025",
-    icon: "/assets/Logo_of_JPMorganChase_2024.svg",
-    iconBg: "#B3b3b3",
-    animation: "bounce",
-    points: [
-      "Selected to participate in J.P. Morgan’s Code for Good hackathon representing Purdue University.",
-      "Collaborating with a team of developers to create tech solutions addressing nonprofit challenges.",
-      "Applying experience in React, Node.js, and Python to develop scalable prototypes under time constraints.",
-      "Strengthening teamwork and communication skills through rapid collaboration with industry mentors.",
-    ],
-  },
+  // {
+  //   id: 1,
+  //   name: "J.P. Morgan Code for Good",
+  //   pos: "Hackathon Participant",
+  //   duration: "November 2025 - November 2025",
+  //   icon: "/assets/Logo_of_JPMorganChase_2024.svg",
+  //   iconBg: "#B3b3b3",
+  //   animation: "bounce",
+  //   points: [
+  //   ],
+  // },
   {
     id: 2,
     name: "Purdue University",
