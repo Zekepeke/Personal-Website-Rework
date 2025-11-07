@@ -11,7 +11,7 @@ import RollingGallery from "../components/RollingGallery"
 import CanvasLoader from "../components/CanvasLoader"
 import Sky from "../models/Sky"
 import Plane from "../models/Plane"
-
+import Cat from "../models/Cat"
 
 
 const FolderItems = [
@@ -19,6 +19,8 @@ const FolderItems = [
     <img key="item2" src="/assets/tysonabout1.jpg"/>,
     <img key="item3" src="/assets/tysonabout2.jpg"/>,
 ]
+
+
 
 // --- responsive sizing helpers ---
 const useWindowWidth = () => {
@@ -42,6 +44,11 @@ const useResponsiveSizes = () => {
 
 const About = () => {
   const { folderSize, textFontSize, asciiFontSize } = useResponsiveSizes()
+
+  const [catRotation, setCatRotation] = useState([0.2, -1, 0]);
+  const onRotateCat = () => {
+    setCatRotation(([x, y, z]) => [x, y + Math.PI / 6, z]);
+  };
 
   return (
     <section className="c-space my-20" id="about">
@@ -137,6 +144,24 @@ const About = () => {
                     <li><strong>Keep learning, keep shipping.</strong>  I continually build, test, and improve projects, delivering value at every stage of development.</li>
                 </p>
                 </div>
+
+                <Canvas
+                    title="Click or tap to rotate"
+                    camera={{ position: [0, -0.2, 5], fov: 75 }}
+                    style={{ width: '100%', height: '100%' }}
+                    gl={{ preserveDrawingBuffer: true }}
+                >
+                    <Suspense fallback={<CanvasLoader />} />
+                    <ambientLight intensity={1} />
+                    <pointLight position={[10, 10, 10]} />
+                    <group onPointerDown={onRotateCat} onClick={onRotateCat}>
+                      <Cat
+                        scale={13}
+                        position={[0, -0.2, -1.5]}
+                        rotation={catRotation}
+                      />
+                    </group>
+                </Canvas>
             </div>
             </div>
             <div className="xl:col-span-1 xl:row-span-2">

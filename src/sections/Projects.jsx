@@ -69,18 +69,18 @@ function ProjectCard({ project, index, slideIndex, setSlideIndex }) {
 
   return (
       <Card
-        className="w-72 sm:w-96 md:w-[34em] lg:w-[38em] max-h-[82vh]
-                   bg-[#1e1e1e] px-1 pt-1
-                   border border-[#404040]
-                   shadow-[0_8px_24px_rgba(0,0,0,0.35)]
-                   hover:ring-1 hover:ring-[#1db954]/30 transition"
+        className="max-w-3xl w-full mx-auto
+        rounded-2xl bg-[#181818]/85 backdrop-blur-md
+        ring-1 ring-white/10 shadow-xl
+        p-6 md:p-8 space-y-4 md:space-y-6"
         isPressable
         onPress={onPress}
       >
       {/* Header: project title + quick link */}
       <CardHeader className="block text-left">
         <div className="flex items-start gap-2">
-          <h3 className="text-[clamp(1rem,2.3vw,1.4rem)] font-semibold leading-tight text-[#ffffff]">
+          <h3 className="font-semibold tracking-[-0.01em] 
+              text-[22px] text-[#FFFFFF]">
             {project.title}
           </h3>
           <a
