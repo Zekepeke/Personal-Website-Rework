@@ -30,14 +30,10 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="min-h-screen overflow-hidden pb-24 bg-[#121212]">
-        <div className="relative h-40 flex items-start justify-center">
-          <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-extrabold tracking-tight text-[#FFFFFF]">
+    <section id="projects" className="min-h-screen overflow-hidden bg-[#121212] px-4 sm:px-6 pb-[calc(env(safe-area-inset-bottom)+96px)] sm:pb-24">
+        <div className="relative h-72 flex items-start justify-center">
+          <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-extrabold tracking-tight text-[#FFFFFF] ">
             Projects
-          </h1>
-        </div>
-        <div className="relative h-40 flex items-start justify-center">
-          <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-extrabold tracking-tight text-[#FFFFFF]">
           </h1>
         </div>
       <Parallax speed={50}>
@@ -69,18 +65,14 @@ function ProjectCard({ project, index, slideIndex, setSlideIndex }) {
 
   return (
       <Card
-        className="max-w-3xl w-full mx-auto
-        rounded-2xl bg-[#181818]/85 backdrop-blur-md
-        ring-1 ring-white/10 shadow-xl
-        p-6 md:p-8 space-y-4 md:space-y-6"
+        className="w-[88vw] sm:w-full max-w-[650px] mx-auto md:rounded-2xl rounded-xl bg-[#181818]/85 backdrop-blur-md ring-1 ring-white/10 shadow-xl p-5 md:p-8 space-y-4 md:space-y-6"
         isPressable
         onPress={onPress}
       >
       {/* Header: project title + quick link */}
       <CardHeader className="block text-left">
         <div className="flex items-start gap-2">
-          <h3 className="font-semibold tracking-[-0.01em] 
-              text-[22px] text-[#FFFFFF]">
+          <h3 className="font-semibold tracking-[-0.01em] leading-[1.1] text-[clamp(18px,5vw,24px)] text-[#FFFFFF]">
             {project.title}
           </h3>
           <a
@@ -105,11 +97,9 @@ function ProjectCard({ project, index, slideIndex, setSlideIndex }) {
 
       {/* Media section beneath description */}
       <div className="mt-4 w-full">
-        <div className="rounded-xl border border-[#282828] bg-[#0f0f10] p-2
-                        h-48 sm:h-60 md:h-72 lg:h-80 overflow-hidden">
+        <div className="rounded-xl border border-[#282828] bg-[#0f0f10] p-2 h-[56vw] min-h-44 max-h-80 sm:h-60 md:h-72 lg:h-80 overflow-hidden">
           <div
-            className="flex gap-2 h-full overflow-x-auto snap-x snap-mandatory
-                       [scrollbar-width:none] [-ms-overflow-style:none]"
+            className="flex gap-2 h-full overflow-x-auto snap-x snap-mandatory px-1 [scrollbar-width:none] [-ms-overflow-style:none]"
             style={{ scrollBehavior: "smooth" }}
             aria-label={`${project.title} screenshots`}
           >
@@ -118,8 +108,7 @@ function ProjectCard({ project, index, slideIndex, setSlideIndex }) {
                 key={m.id}
                 src={m.img}
                 alt={`${project.title} screenshot ${m.id}`}
-                className="h-full w-auto rounded-lg snap-center object-cover
-                           transition-transform duration-300 hover:scale-[0.985]"
+                className="h-full w-auto rounded-lg snap-center object-cover transition-transform duration-300 hover:scale-[0.985] select-none"
                 loading="lazy"
                 draggable="false"
               />
@@ -129,7 +118,7 @@ function ProjectCard({ project, index, slideIndex, setSlideIndex }) {
       </div>
 
       {/* Footer: tech tags (chips) */}
-      <CardFooter className="flex flex-row flex-wrap gap-2">
+      <CardFooter className="flex flex-row flex-wrap gap-2 pt-">
         {(project.tags || []).map((tag) => (
           <Chip
             key={tag.name}

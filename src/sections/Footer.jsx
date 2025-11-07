@@ -22,7 +22,7 @@ const Footer = () => {
       <div className="mx-auto grid w-11/12 grid-cols-12 sm:w-11/12">
 
         <div className="col-span-12 font-mono sm:col-span-7 sm:-mt-16 lg:col-span-4">
-          Thanks for checking out my website! I hope it was great to know me a little better. I love to meet new people and get to know them so feel free to reach out!
+          Thanks for checking out my website! I hope you loved the many pictures of my cat too! I love meeting new people and getting to know them so feel free to reach out!
         </div>
 
         {/* Social links */}
