@@ -181,7 +181,7 @@ export const workExperiences = [
   //   pos: "Hackathon Participant",
   //   duration: "November 2025 - November 2025",
   //   icon: "/assets/Logo_of_JPMorganChase_2024.svg",
-  //   iconBg: "#B3b3b3",
+  //   iconBg: "#B3b3b3",c
   //   animation: "bounce",
   //   points: [
   //   ],

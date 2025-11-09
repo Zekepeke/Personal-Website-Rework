@@ -54,6 +54,7 @@ const Footer = () => {
             >
               open-source
             </Link>{" "}
+            project
           </h3>
           <h3> Esequiel Linares, {new Date().getFullYear()}</h3>
         </div>
