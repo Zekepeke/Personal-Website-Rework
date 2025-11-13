@@ -175,17 +175,17 @@ export const myProjects = [
   };
   
 export const workExperiences = [
-  // {
-  //   id: 1,
-  //   name: "J.P. Morgan Code for Good",
-  //   pos: "Hackathon Participant",
-  //   duration: "November 2025 - November 2025",
-  //   icon: "/assets/Logo_of_JPMorganChase_2024.svg",
-  //   iconBg: "#B3b3b3",c
-  //   animation: "bounce",
-  //   points: [
-  //   ],
-  // },
+  {
+    id: 1,
+    name: "J.P. Morgan Code for Good",
+    pos: "Hackathon Participant",
+    duration: "November 2025 - November 2025",
+    icon: "/assets/Logo_of_JPMorganChase_2024.svg",
+    iconBg: "#B3b3b3",
+    animation: "bounce",
+    points: [
+    ],
+  },
   {
     id: 2,
     name: "Purdue University",
