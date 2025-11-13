@@ -183,7 +183,12 @@ export const workExperiences = [
     icon: "/assets/Logo_of_JPMorganChase_2024.svg",
     iconBg: "#B3b3b3",
     animation: "bounce",
-    points: [
+     points: [
+      "Built the backend for a 2-day hackathon project supporting the Lilabean Foundation for Pediatric Brain Cancer Research.",
+      "Built a small RESTful API in Python using Flask and SQLAlchemy on SQLite to connect the frontend and data layer.",
+      "Configured the Flask app to serve the frontend, keeping deployment and integration simple for the team.",
+      "Proposed rapid Figma wireframing and a lightweight data model so the team could focus on delivering a clear MVP.",
+      "Coordinated across frontend, backend, and database groups, clarifying interfaces and answering integration questions.",
     ],
   },
   {
