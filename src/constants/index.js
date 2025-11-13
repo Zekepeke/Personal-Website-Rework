@@ -177,22 +177,6 @@ export const myProjects = [
 export const workExperiences = [
   {
     id: 1,
-    name: "J.P. Morgan Code for Good",
-    pos: "Hackathon Participant",
-    duration: "November 2025 - November 2025",
-    icon: "/assets/Logo_of_JPMorganChase_2024.svg",
-    iconBg: "#B3b3b3",
-    animation: "bounce",
-     points: [
-      "Spearheaded backend development for a 2-day hackathon project supporting a nonprofit for Pediatric Brain Cancer Research.",
-      "Engineered a RESTful API in Python using Flask and SQLAlchemy on SQLite to connect the frontend and data layer.",
-      "Configured and deployed the Flask app to also serve the frontend, simplifying integration and reducing deployment overhead.",
-      "Championed rapid Figma wireframing and a lightweight data model to keep the team focused on delivering a clear MVP.",
-      "Facilitated collaboration across frontend, backend, and database groups by defining clean interfaces and unblocking integration issues.",
-    ],
-  },
-  {
-    id: 2,
     name: "Purdue University",
     pos: "Undergraduate Researcher – Multimodal Generative AI",
     duration: "September 2025 – Present",
@@ -205,6 +189,22 @@ export const workExperiences = [
       "Built PyTorch pipelines for Text-to-Duet and Dance Accompaniment, improving results by 60–500%.",
       "Analyzed multimodal embeddings across text, motion, and audio; identified 5 use cases for VR/XR interaction.",
       "Contributed to the writing of a research paper exploring long-term dance motion generation.",
+    ],
+  },
+  {
+    id: 2,
+    name: "J.P. Morgan Code for Good",
+    pos: "Hackathon Participant",
+    duration: "November 2025 - November 2025",
+    icon: "/assets/Logo_of_JPMorganChase_2024.svg",
+    iconBg: "#B3b3b3",
+    animation: "bounce",
+     points: [
+      "Spearheaded backend development for a 2-day hackathon project supporting a nonprofit for Pediatric Brain Cancer Research.",
+      "Engineered a RESTful API in Python using Flask and SQLAlchemy on SQLite to connect the frontend and data layer.",
+      "Configured and deployed the Flask app to also serve the frontend, simplifying integration and reducing deployment overhead.",
+      "Championed rapid Figma wireframing and a lightweight data model to keep the team focused on delivering a clear MVP.",
+      "Facilitated collaboration across frontend, backend, and database groups by defining clean interfaces and unblocking integration issues.",
     ],
   },
   {
