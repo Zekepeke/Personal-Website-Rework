@@ -67,7 +67,7 @@ const Hero = () => {
             <PixelTransition
               firstContent={
                 <img
-                  src="/assets/tyson.png"
+                  src="/assets/tyson.jpeg"
                   alt="Tyson"
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
