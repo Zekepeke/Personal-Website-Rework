@@ -57,7 +57,7 @@ const Hero = () => {
       <div className="relative z-10 c-space flex min-h-screen flex-col justify-center">
         <div className="max-w-[640px]">
           <h1 className="text-4xl font-generalsans font-black leading-tight text-white sm:text-5xl md:text-6xl">
-            Zeke Linares
+            Esequiel Linares
           </h1>
           <p className="mt-4 max-w-[600px] font-generalsans text-base text-white/90 sm:text-lg">
             CS @ Purdue &apos;28 · Software Engineering Intern at JPMorgan Chase · I build infrastructure for AI systems that actually run in production.
@@ -79,34 +79,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Cat polaroid */}
-      <div className="absolute bottom-6 right-4 z-10 w-[150px] sm:bottom-10 sm:right-10 sm:w-[220px]">
-        <PixelTransition
-          firstContent={
-            <img
-              src="/assets/tyson.jpeg"
-              alt="Tyson"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          }
-          secondContent={
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                display: 'grid',
-                placeItems: 'center',
-                backgroundColor: '#3d3d3d',
-              }}
-            >
-              <p style={{ fontWeight: 900, fontSize: '3rem', color: '#f3efe8' }}>Hello👋</p>
-            </div>
-          }
-          gridSize={12}
-          pixelColor="#336659"
-          animationStepDuration={0.35}
-        />
-      </div>
     </section>
   )
 }
