@@ -20,7 +20,7 @@ const Hero = () => {
           <>
             {/* Poster image: shown on mobile and when reduced motion is preferred */}
             <img
-              src="/assets/hero-poster.jpg"
+              src="/assets/hero-poster.jpeg"
               alt=""
               aria-hidden="true"
               decoding="async"
