@@ -73,7 +73,7 @@ const Hero = () => {
               rel="noopener noreferrer"
               className="flex items-center justify-center rounded-md border border-white/40 px-5 py-3 text-white transition-all hover:bg-white/10 active:scale-95"
             >
-              Résumé
+              Resume
             </a>
           </div>
         </div>
