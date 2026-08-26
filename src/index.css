@@ -1,13 +1,41 @@
 
-@import url('https://fonts.cdnfonts.com/css/general-sans');
+@import '@fontsource/instrument-serif/latin.css';
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/general-sans-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/general-sans-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/general-sans-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/general-sans-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-* {
-  scroll-behavior: smooth;
-}
 
 body {
   background: #121212;
@@ -20,7 +48,7 @@ body {
   }
 
   .head-text {
-    @apply sm:text-4xl text-3xl font-semibold text-gray_gradient;
+    @apply sm:text-4xl text-3xl font-semibold font-display text-gray_gradient;
   }
 
   .nav-ul {
@@ -40,7 +68,7 @@ body {
   }
 
   .text-gray_gradient {
-    @apply bg-gradient-to-r from-[#BEC1CF] from-60% via-[#D5D8EA] via-60% to-[#D5D8EA] to-100% bg-clip-text text-transparent;
+    @apply text-white-800;
   }
 
   /* button component */
@@ -49,16 +77,16 @@ body {
   }
 
   .btn-ping {
-    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75;
+    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75;
   }
 
   .btn-ping_dot {
-    @apply relative inline-flex rounded-full h-3 w-3 bg-green-500;
+    @apply relative inline-flex rounded-full h-3 w-3 bg-accent;
   }
 
   /* hero section */
   .hero_tag {
-    @apply text-center xl:text-6xl md:text-5xl sm:text-4xl text-3xl font-generalsans font-black !leading-normal;
+    @apply text-center xl:text-6xl md:text-5xl sm:text-4xl text-3xl font-display font-black !leading-normal;
   }
 
   /* about section */
@@ -85,19 +113,6 @@ body {
 
   .tech-logo {
     @apply w-10 h-10 rounded-md p-2 bg-neutral-100 bg-opacity-10 backdrop-filter backdrop-blur-lg flex justify-center items-center;
-  }
-
-  /* clients section */
-  .client-container {
-    @apply grid md:grid-cols-2 grid-cols-1 gap-5 mt-12;
-  }
-
-  .client-review {
-    @apply rounded-lg md:p-10 p-5 col-span-1 bg-black-300 bg-opacity-50;
-  }
-
-  .client-content {
-    @apply flex lg:flex-row flex-col justify-between lg:items-center items-start gap-5 mt-7;
   }
 
   /*  work experience section */
@@ -243,11 +258,6 @@ body {
     text-align: center;
     padding: 0.75rem 1rem;
   }
-}
-
-/* Performance optimizations */
-.nav-li, .nav-li_a {
-  will-change: transform, color, background-color;
 }
 
 /* Smooth scrolling for all browsers */

@@ -3,29 +3,31 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      fontFamily: {
-        generalsans: ['General Sans', 'sans-serif'],
-      },
+      // tailwind.config.js — theme.extend.colors
       colors: {
         black: {
           DEFAULT: '#000',
-          100: '#010103',
-          200: '#0E0E10',
-          300: '#1C1C21',
-          500: '#3A3A49',
-          600: '#1A1A1A',
+          100: '#0B0C0E',
+          200: '#141619',
+          300: '#1D2025',
+          500: '#2A2E35',
+          600: '#101114',
         },
         white: {
-          DEFAULT: '#FFFFFF',
-          800: '#E4E4E6',
-          700: '#D6D9E9',
-          600: '#AFB0B6',
-          500: '#62646C',
+          DEFAULT: '#FFF',
+          500: '#9BA1A9',
+          600: '#C6CAD1',
+          800: '#F2F3F5',
         },
-        green: {
-          DEFAULT: '#A7EF9E',
-          700: '#A7EF9E',
+        accent: {
+          DEFAULT: '#8FA9D8',  // pastel blue, from the video
+          2: '#A99BD4',        // purple
+          3: '#9BC4A8',        // green — sparingly
         },
+      },
+      fontFamily: {
+        generalsans: ['General Sans', 'sans-serif'],
+        display: ['Instrument Serif', 'Georgia', 'serif'],
       },
       backgroundImage: {
         terminal: "url('/assets/terminal.png')",

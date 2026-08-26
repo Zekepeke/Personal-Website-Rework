@@ -18,7 +18,7 @@ const iconMap = {
 
 const Footer = () => {
   return (
-    <div className="w-full bg-green-700 px-4 pb-4 pt-32 dark:bg-green-700 sm:pt-24">
+    <div className="w-full bg-accent px-4 pb-4 pt-32 dark:bg-accent sm:pt-24">
       <div className="mx-auto grid w-11/12 grid-cols-12 sm:w-11/12">
 
         <div className="col-span-12 font-mono sm:col-span-7 sm:-mt-16 lg:col-span-4">
