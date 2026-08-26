@@ -1,195 +1,106 @@
-import Globe from "react-globe.gl"
-import Shuffle from "../components/Shuffle"
-import Folder from "../components/Folder"
-import { Suspense, useEffect, useRef, useState } from 'react'
-import { Canvas } from "@react-three/fiber"
-import Aztec from "../models/Aztec"
-import RollingGallery from "../components/RollingGallery"
-import CanvasLoader from "../components/CanvasLoader"
-import Sky from "../models/Sky"
-import Plane from "../models/Plane"
-import Cat from "../models/Cat"
+import { photos, facts } from "../constants/aboutData"
+import NowPlaying from "../components/NowPlaying"
 
+// Alternating tilt per tile index, capped at 3deg — see BAND 2 spec.
+const ROTATIONS = [-2.5, 2, -1.5, 3, -2]
 
-const FolderItems = [
-    <img key="item1" src="/assets/tysonabout3.jpg" />,
-    <img key="item2" src="/assets/tysonabout1.jpg"/>,
-    <img key="item3" src="/assets/tysonabout2.jpg"/>,
-]
-
-
-
-// --- responsive sizing helpers ---
-const useWindowWidth = () => {
-  const [w, setW] = useState(typeof window !== 'undefined' ? window.innerWidth : 1280)
-  useEffect(() => {
-    const onResize = () => setW(window.innerWidth)
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [])
-  return w
+const SPAN_CLASS = {
+  sm: "about-span-sm",
+  md: "about-span-md",
+  lg: "about-span-lg",
 }
 
-const useResponsiveSizes = () => {
-  const w = useWindowWidth()
-  // Tune breakpoints for folder + ASCII sizes
-  const folderSize = w < 640 ? 1.9 : w < 1024 ?  2: 2
-  const textFontSize = w < 640 ? 240 : w < 1024 ? 340 : 400
-  const asciiFontSize = w < 640 ? 0.9 : 1.8
-  return { folderSize, textFontSize, asciiFontSize }
+// Intrinsic size hints per span so the browser can reserve layout space.
+const SPAN_DIMENSIONS = {
+  sm: { width: 600, height: 400 },
+  md: { width: 800, height: 400 },
+  lg: { width: 800, height: 800 },
 }
 
 const About = () => {
-  const { folderSize, textFontSize, asciiFontSize } = useResponsiveSizes()
-
-  const [catRotation, setCatRotation] = useState([0.2, -1, 0]);
-  const onRotateCat = () => {
-    setCatRotation(([x, y, z]) => [x, y + Math.PI / 6, z]);
-  };
-
   return (
     <section className="c-space my-20" id="about">
-        <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
-            <div className="col-span-1 xl:row-span-3 ">
-                <div className="grid-container h-full min-h-[420px] sm:min-h-[480px] md:min-h-[520px] flex flex-col justify-end overflow-visible pt-6 sm:pt-10">
-                    <div className="w-full flex justify-center items-center mb-4">
-                      <Folder
-                        size={folderSize}
-                        color="#2EFFA8"
-                        items={FolderItems}
-                      />
-                    </div>
-                    <div>
-                        <div className="my-12 head-text text-[#FFFFFF] text-center">
-                            <text className="text-[#FFFFFF] fill-foreground text-[65px]" width="500">
-                                I'm Zeke!
-                            </text>
-                        </div>
-                        <p className="grid-headtext">
-                            Building intelligent systems that make technology feel human.
-                        </p>
-                    </div>
-                </div>
-            </div>
+      {/* scoped to the About photo board only */}
+      <style>{`
+        .about-photo-grid {
+          display: grid;
+          grid-template-columns: repeat(12, minmax(0, 1fr));
+          grid-auto-rows: 180px;
+          grid-auto-flow: dense;
+          gap: 16px;
+        }
+        .about-span-sm { grid-column: span 3; grid-row: span 1; }
+        .about-span-md { grid-column: span 4; grid-row: span 1; }
+        .about-span-lg { grid-column: span 5; grid-row: span 2; }
 
-            <div className="col-span-1 xl:row-span-3">
-                <div className="grid-container">
-                    <div className="flex justify-center items-center h-[360px]">{/* fixed height across breakpoints */}
-                        <RollingGallery
-                          autoplay
-                          pauseOnHover
-                          height={240}
-                          itemWidth={160}
-                          itemGap={24}
-                        />
-                    </div>
+        .about-photo-frame {
+          transform: rotate(var(--rot, 0deg));
+          transition: transform 250ms ease-out;
+        }
+        .about-photo-frame:hover {
+          transform: rotate(0deg) scale(1.02);
+        }
 
-                    <div>
-                        <p className="grid-headtext">Languages, Frameworks & AI Tools</p>
-                       <p className="grid-subtext">
-                            My favorite tools for turning imagination into logic, from web apps to neural networks.
-                        </p>
-                    </div>
-                </div>
-            </div>
+        @media (max-width: 640px) {
+          .about-photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          .about-span-sm, .about-span-md, .about-span-lg { grid-column: span 1; grid-row: span 1; }
+          .about-photo-frame { transform: none !important; }
+        }
 
-            <div className="col-span-1 xl:row-span-4">
+        @media (prefers-reduced-motion: reduce) {
+          .about-photo-frame:hover { transform: rotate(var(--rot, 0deg)); }
+        }
+      `}</style>
 
-                <div className="grid-container">
-                    <div className="rounded-3xl w-full aspect-square max-w-[326px] mx-auto flex justify-center items-center overflow-hidden bg-[#181818] relative">
-                        <Canvas
-                            camera={{ position: [0, -0.2, 5], fov: 75 }}
-                            style={{ width: '100%', height: '100%' }}
-                            gl={{ preserveDrawingBuffer: true }}
-                        >
-                            <Suspense fallback={<CanvasLoader />} />
-                            <ambientLight intensity={0.5} />
-                            <pointLight position={[10, 10, 10]} />
-                            <Sky isRotating={true} />
-                            <Plane
-                                isRotating={true}
-                                position = {[0, 0.9, 3]}
-                                scale = {[0.73,0.73,0.73]}
-                                rotation ={[0,1.6,0]}
-                            />
-                            <Aztec scale={0.0058} position={[0, -0.22, 0]} rotation={[0, 10, 0]}/>
-                        </Canvas>
-                    </div>
-                    <div className="mt-5">
-                      <p className="grid-headtext">Exploration Through Code</p>
-                      <p className="grid-subtext">
-                        I treat code as art and research; experimenting with 3D and AI to turn curiosity into meaningful experiences.                      </p>
-                    </div>
-                </div>
+      {/* BAND 1 — Intro */}
+      <div className="max-w-[620px]">
+        <h2 className="font-display text-3xl sm:text-4xl text-white-800 mb-4">About</h2>
+        <p className="font-generalsans text-white-600">[INTRO COPY]</p>
+      </div>
 
-            </div>
+      {/* BAND 2 — Photo board */}
+      <div className="about-photo-grid mt-14">
+        {photos.map((photo, i) => {
+          const { width, height } = SPAN_DIMENSIONS[photo.span]
+          return (
+            <figure key={photo.src} className={`${SPAN_CLASS[photo.span]} h-full flex flex-col gap-2`}>
+              <div
+                className="about-photo-frame relative flex-1 min-h-0 border-8 border-white-800 shadow-inner overflow-hidden"
+                style={{ "--rot": `${ROTATIONS[i % ROTATIONS.length]}deg` }}
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={width}
+                  height={height}
+                  loading="lazy"
+                  className="w-full h-full object-cover block"
+                />
+              </div>
+              <figcaption className="font-mono text-xs text-white-500">{photo.caption}</figcaption>
+            </figure>
+          )
+        })}
+      </div>
 
-            <div className="xl:col-span-2 xl:row-span-3"> 
-            <div className="grid-container">
-                <div> 
-                <p className="grid-headtext">
-                    My Mission & Values
-                </p>
-                <p className="grid-subtext space-y-2 list-disc marker:text-2xl marker:text-[#B3B3B3] pl-5">
-                    <li><strong>Build with intention.</strong>  I create code that is useful, beautiful, or kind, never meaningless complexity.</li>
-                    <li><strong>Stay curious.</strong> I seek ideas that challenge how we think, learn, and connect through technology.</li>
-                    <li><strong>Bridge art and logic.</strong> Creativity paired with precision transforms imagination into working systems.</li>
-                    <li><strong>Empower through empathy.</strong> Software must embrace accessibility and inclusion from the start.</li>
-                    <li><strong>Keep learning, keep shipping.</strong>  I continually build, test, and improve projects, delivering value at every stage of development.</li>
-                </p>
-                </div>
+      {/* BAND 3 — Facts */}
+      <div className="max-w-[620px] mt-14">
+        {facts.map((fact, i) => (
+          <div
+            key={fact.label}
+            className={`flex items-baseline justify-between gap-6 py-3 ${i !== 0 ? "border-t-[0.5px] border-black-300" : ""}`}
+          >
+            <span className="font-mono text-sm text-white-500 shrink-0">{fact.label}</span>
+            <span className="font-generalsans text-white-800 text-right">{fact.value}</span>
+          </div>
+        ))}
+      </div>
 
-                <Canvas
-                    title="Click or tap to rotate"
-                    camera={{ position: [0, -0.2, 5], fov: 75 }}
-                    style={{ width: '100%', height: '100%' }}
-                    gl={{ preserveDrawingBuffer: true }}
-                >
-                    <Suspense fallback={<CanvasLoader />} />
-                    <ambientLight intensity={1} />
-                    <pointLight position={[10, 10, 10]} />
-                    <group onPointerDown={onRotateCat} onClick={onRotateCat}>
-                      <Cat
-                        scale={13}
-                        position={[0, -0.2, -1.5]}
-                        rotation={catRotation}
-                      />
-                    </group>
-                </Canvas>
-            </div>
-            </div>
-            <div className="xl:col-span-1 xl:row-span-2">
-                <div className="grid-container">
-                    <div className="space-y-2">
-
-                        <a
-                            className="copy-container cursor-pointer"
-                            href="/assets/Esequiel_Linares_resume.pdf"
-                            download="Esequiel_Linares_resume.pdf"
-                        >
-
-                            <Shuffle
-                                text="Click Here to Download Resume"
-                                shuffleDirection="right"
-                                duration={0.35}
-                                animationMode="evenodd"
-                                shuffleTimes={1}
-                                ease="power3.out"
-                                stagger={0.03}
-                                threshold={0.1}
-                                colorFrom="#1DB954"
-                                colorTo="#2EFFA8"
-                                triggerOnce={true}
-                                triggerOnHover={true}
-                                respectReducedMotion={true}
-                            />
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+      {/* BAND 4 — Currently */}
+      <div className="max-w-[620px] mt-14">
+        <p className="font-mono text-sm text-white-500 mb-1">Currently</p>
+        <NowPlaying />
+      </div>
     </section>
   )
 }
