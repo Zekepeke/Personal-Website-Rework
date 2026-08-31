@@ -17,30 +17,8 @@ const Equalizer = ({ paused }) => (
   </span>
 )
 
-const TopTracks = ({ tracks }) => (
-  <div>
-    <p className="font-mono text-sm text-white-500 mb-1 flex items-center gap-1.5">
-      Top 5 this month
-      <SpotifyMark className="text-white-500" />
-    </p>
-    {tracks.map((track, i) => (
-      <a
-        key={track.url ?? track.title}
-        href={track.url ?? '#'}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`flex items-baseline gap-4 py-3 ${i !== 0 ? 'border-t-[0.5px] border-black-300' : ''}`}
-      >
-        <span className="font-mono text-sm text-white-500 shrink-0">{String(i + 1).padStart(2, '0')}</span>
-        <span className="font-generalsans text-white-800 truncate">{track.title}</span>
-        <span className="font-mono text-xs text-white-500 truncate ml-auto shrink-0">{track.artist}</span>
-      </a>
-    ))}
-  </div>
-)
-
 const NowPlaying = () => {
-  const { now, top } = useSpotify()
+  const { now } = useSpotify()
   const [localProgress, setLocalProgress] = useState(0)
 
   // Resync local progress whenever a fresh poll comes in.
@@ -59,12 +37,11 @@ const NowPlaying = () => {
     return () => clearInterval(tick)
   }, [now?.state, now?.duration])
 
-  const hasTop = top && top.length > 0
   const isPlaying = now?.state === 'playing'
   const isRecent = now?.state === 'recent'
   const showTrack = isPlaying || isRecent
 
-  if (!showTrack && !hasTop) return null
+  if (!showTrack) return null
 
   const label = isPlaying ? 'Now playing' : 'Last played'
   const pct = isPlaying && now.duration ? Math.min((localProgress / now.duration) * 100, 100) : 0
@@ -135,8 +112,6 @@ const NowPlaying = () => {
           </div>
         </a>
       )}
-
-      {hasTop && <TopTracks tracks={top} />}
     </div>
   )
 }

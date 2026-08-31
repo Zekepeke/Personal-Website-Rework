@@ -4,7 +4,6 @@ const POLL_MS = 25000
 
 export function useSpotify() {
   const [now, setNow] = useState(null)
-  const [top, setTop] = useState([])
 
   useEffect(() => {
     let alive = true
@@ -32,27 +31,7 @@ export function useSpotify() {
     }
   }, [])
 
-  useEffect(() => {
-    let alive = true
-
-    const fetchTop = async () => {
-      try {
-        const res = await fetch('/api/top-tracks')
-        const data = await res.json()
-        if (alive) setTop(data.tracks ?? [])
-      } catch {
-        if (alive) setTop([])
-      }
-    }
-
-    fetchTop()
-
-    return () => {
-      alive = false
-    }
-  }, [])
-
-  return { now, top }
+  return { now }
 }
 
 export default useSpotify
