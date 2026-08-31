@@ -20,7 +20,7 @@ export default {
           800: '#F2F3F5',
         },
         accent: {
-          DEFAULT: '#8FA9D8',  // pastel blue, from the video
+          DEFAULT: '#85A16A',  // green
           2: '#A99BD4',        // purple
           3: '#9BC4A8',        // green — sparingly
         },
