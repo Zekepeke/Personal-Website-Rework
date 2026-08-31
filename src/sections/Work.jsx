@@ -1,8 +1,4 @@
-import React from 'react';
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
-import 'react-vertical-timeline-component/style.min.css';
 import { workExperiences } from '../constants';
-import TextEffect from 'text-effect';
 
 const Work = () => {
   return (
@@ -12,62 +8,43 @@ const Work = () => {
               Work Experience
         </text>
       </p>
-      <div className = "mt-3 flex flex-col gap-3 text-[#FFFFFF] text-center">
-              <p>
-              I've undertaken diverse roles, enhancing my skill set and collaborating with colleagues.
-              </p>
-            </div>
-        <div className = 'py-16'>
-          <div className='mt-12 flex'>
-            <VerticalTimeline>
-              {workExperiences.map((experience) => (
-                <VerticalTimelineElement
-                  key={`${experience.name}-${experience.pos}`}
-                  date={experience.duration}
-                  icon={
-                    <div className="flex justify-center items-center w-full h-full">
-                      <img
-                        src={experience.icon}
-                        alt={experience.name}
-                        className="w-[85%] h-[85%] object-contain"
-                      />
-                    </div>
-                  }
-                  iconStyle={{ background: experience.iconBg}}
-                  contentStyle={{
-                    background: '#181818',
-                    color: '#FFFFFF',
-                    border: '1px solid #282828',
-                    borderLeft: '4px solid ' + experience.iconBg,
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.35)'
-                  }}
-                  contentArrowStyle={{ borderRight: '7px solid #181818' }}
-                >
-                  <div>
-                    <h3 className="text-white text-xl font-poppins font-semibold">{experience.pos}</h3>
-                    <p className="font-medium text-base" style={{ margin: 0, color: '#B3B3B3' }}>
-                      {experience.name}
-                    </p>
-                  </div>
 
-                  <ul className="my-5 list-disc ml-5 space-y-2">
+      <div className="mt-12 max-w-3xl mx-auto">
+        {workExperiences.map((experience) => (
+          <div key={`${experience.name}-${experience.pos}`} className="relative flex pb-10 last:pb-0">
+            <div className="relative w-[90px] shrink-0 flex justify-end pr-4">
+              <span className="font-mono text-sm text-white-500 text-right">{experience.duration}</span>
+              <span className="absolute top-1 right-0 translate-x-1/2 w-2 h-2 rounded-full bg-accent" />
+            </div>
+
+            <div className="absolute left-[90px] top-0 bottom-0 w-px bg-black-300" />
+
+            <div className="pl-8 max-w-[620px]">
+              {experience.featured ? (
+                <>
+                  <h3 className="font-display text-2xl text-white-800">{experience.pos}</h3>
+                  <p className="text-white-500 mt-1">
+                    {experience.name}
+                    {experience.location ? `, ${experience.location}` : ''}
+                  </p>
+                  <p className="text-accent text-lg font-medium mt-3">{experience.headline}</p>
+                  <ul className="mt-4 space-y-2 list-disc ml-5">
                     {experience.points?.map((point, index) => (
-                      <li
-                        key={`experience-point-${index}`}
-                        className="font-normal pl-1 text-sm" style={{ color: '#B3B3B3' }}
-                      >
+                      <li key={`experience-point-${index}`} className="text-white-500 text-sm">
                         {point}
                       </li>
                     ))}
                   </ul>
-                </VerticalTimelineElement>
-              ))}
-            </VerticalTimeline>
-
+                </>
+              ) : (
+                <p className="text-white-500 text-sm">
+                  <span className="text-white-800">{experience.pos}</span> — {experience.name} — {experience.result}
+                </p>
+              )}
+            </div>
           </div>
-
-        </div>
+        ))}
+      </div>
     </section>
   )
 }
