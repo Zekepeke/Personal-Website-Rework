@@ -1,134 +1,406 @@
-import React, { useState, useEffect } from "react";
-import { Parallax } from "react-scroll-parallax";
-import { nanoid } from "nanoid";
-import { myProjects } from "../constants";
-import { Card, CardHeader, CardBody, CardFooter, Chip } from "@heroui/react";
-import Carousel from "react-spring-3d-carousel";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { tier1Projects, tier2Projects, githubRepoCount, githubProfileUrl } from "../constants/projectsData";
+
+const TOTAL = tier1Projects.length;
 
 export default function Projects() {
-  const [slideIndex, setSlideIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRef = useRef(null);
+  const mobileScrollRef = useRef(null);
+  const mobileCardRefs = useRef([]);
+  const isMobileScrollSync = useRef(false);
 
-  const slides = myProjects.map((project, index) => ({
-    key: nanoid(),
-    content: (
-      <ProjectCard
-        project={project}
-        index={index}
-        slideIndex={slideIndex}
-        setSlideIndex={setSlideIndex}
-      />
-    ),
-  }));
+  // Clicking a chip / index slot, or using the arrow keys, should also move
+  // the mobile scroll-snap row to match — the two are the same "active slide".
+  const goToIndex = (i) => {
+    setActiveIndex(i);
+    const card = mobileCardRefs.current[i];
+    const container = mobileScrollRef.current;
+    if (card && container) {
+      isMobileScrollSync.current = true;
+      const targetLeft = card.getBoundingClientRect().left - container.getBoundingClientRect().left + container.scrollLeft;
+      container.scrollTo({ left: targetLeft, behavior: "auto" });
+    }
+  };
 
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "ArrowRight") setSlideIndex((i) => (i + 1) % myProjects.length);
-      if (e.key === "ArrowLeft") setSlideIndex((i) => (i - 1 + myProjects.length) % myProjects.length);
+      if (e.key === "ArrowRight") goToIndex((activeIndex + 1) % TOTAL);
+      if (e.key === "ArrowLeft") goToIndex((activeIndex - 1 + TOTAL) % TOTAL);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, [activeIndex]);
+
+  // Keep the named index in sync when the user swipes the mobile row directly
+  // (rather than tapping a chip) rather than routing every swipe through state.
+  useEffect(() => {
+    const container = mobileScrollRef.current;
+    if (!container) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isMobileScrollSync.current) return;
+        const visible = entries.find((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.6);
+        if (visible) {
+          const index = mobileCardRefs.current.indexOf(visible.target);
+          if (index !== -1) setActiveIndex(index);
+        }
+      },
+      { root: container, threshold: [0.6] }
+    );
+
+    mobileCardRefs.current.forEach((card) => card && observer.observe(card));
+
+    let settleTimeout;
+    const onScroll = () => {
+      isMobileScrollSync.current = true;
+      clearTimeout(settleTimeout);
+      settleTimeout = setTimeout(() => {
+        isMobileScrollSync.current = false;
+      }, 150);
+    };
+    container.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      container.removeEventListener("scroll", onScroll);
+      clearTimeout(settleTimeout);
+    };
   }, []);
 
   return (
-    <section id="projects" className="min-h-screen overflow-hidden bg-[#121212] px-4 sm:px-6 pb-[calc(env(safe-area-inset-bottom)+96px)] sm:pb-24">
-        <div className="relative h-72 flex items-start justify-center">
-          <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-extrabold tracking-tight text-[#FFFFFF] ">
-            Projects
-          </h1>
-        </div>
-      <Parallax speed={50}>
-        {/* 3D carousel of project cards */}
-        <div className="mt-10 max-w-full">
-          <Carousel
-            slides={slides}
-            showNavigation={true}
-            goToSlide={slideIndex}
-            animationConfig={{ tension: 210, friction: 50 }}
-          />
+    <section id="projects" className="c-space mt-20 overflow-x-hidden scroll-mt-[84px] sm:scroll-mt-[96px]" ref={sectionRef}>
+      <p className="head-text text-center">Projects</p>
+
+      {/* TIER 1 — carousel */}
+      <div
+        role="region"
+        aria-label="Featured projects carousel"
+        className="mt-14"
+      >
+        {/* Mobile: scrolling chip index sits above the carousel */}
+        <IndexNav
+          activeIndex={activeIndex}
+          setActiveIndex={goToIndex}
+          className="flex md:hidden mb-5 gap-2 max-w-full overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] px-1"
+        />
+
+        {/* Desktop / tablet: single active slide, no peeking side cards */}
+        <div className="hidden md:block relative min-h-[720px] lg:min-h-[640px]">
+          <motion.div
+            key={tier1Projects[activeIndex].id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            <Tier1Slide project={tier1Projects[activeIndex]} isMobile={false} />
+          </motion.div>
         </div>
 
-        {/* Spacer for scroll playroom */}
-        <div className="h-72 sm:h-96" />
-      </Parallax>
+        {/* Mobile: horizontal scroll-snap cards */}
+        <div
+          ref={mobileScrollRef}
+          className="md:hidden -mx-5 px-5 flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none]"
+        >
+          {tier1Projects.map((project, i) => (
+            <div
+              key={project.id}
+              ref={(el) => (mobileCardRefs.current[i] = el)}
+              className="w-full shrink-0 grow-0 basis-full snap-center"
+            >
+              <Tier1Slide project={project} isMobile={true} />
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop / tablet: named index below the carousel */}
+        <IndexNav
+          activeIndex={activeIndex}
+          setActiveIndex={goToIndex}
+          className="hidden md:flex mt-10 gap-8 justify-center"
+        />
+      </div>
+
+      {/* TIER 2 — also built */}
+      <div className="mt-10 md:mt-24">
+        <p className="font-mono text-sm text-white-500 mb-4">Also built</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-1 border-t border-black-300">
+          {tier2Projects.map((project) => (
+            <a
+              key={project.id}
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block py-3 border-b border-black-300 font-mono text-sm text-white-500 hover:text-accent transition-colors leading-snug"
+            >
+              <span className="text-white-800">{project.name}</span>
+              {" — "}
+              {project.stack}
+              {" — "}
+              {project.result}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* TIER 3 — full repo list */}
+      <div className="mt-10 text-center">
+        <a
+          href={githubProfileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-sm text-white-500 hover:text-accent transition-colors"
+        >
+          {githubRepoCount} repos on GitHub ↗
+        </a>
+      </div>
     </section>
   );
 }
 
-function ProjectCard({ project, index, slideIndex, setSlideIndex }) {
-  const onPress = () =>
-    slideIndex === index
-      ? 
-        window.open(project.href, "_blank", "noopener noreferrer")
-      : setSlideIndex(index);
+function IndexNav({ activeIndex, setActiveIndex, className }) {
+  return (
+    <div className={className}>
+      {tier1Projects.map((project, i) => (
+        <button
+          key={project.id}
+          type="button"
+          onClick={() => setActiveIndex(i)}
+          aria-current={i === activeIndex}
+          className={`shrink-0 snap-start whitespace-nowrap font-mono text-xs sm:text-sm pb-1 border-b-2 transition-colors outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm ${
+            i === activeIndex
+              ? "text-white-800 border-accent"
+              : "text-white-500 border-transparent hover:text-white-600"
+          }`}
+        >
+          {String(project.index).padStart(2, "0")} {project.title}
+        </button>
+      ))}
+    </div>
+  );
+}
 
-  const animateFrom = "bottom";
+function Tier1Slide({ project, isMobile }) {
+  return (
+    <article
+      aria-label={`${String(project.index).padStart(2, "0")} of ${String(TOTAL).padStart(2, "0")} — ${project.title}`}
+      className="relative max-w-4xl mx-auto"
+    >
+      <span className="absolute top-0 right-0 font-mono text-xs text-white-500">
+        {String(project.index).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
+      </span>
+
+      <div className="pr-16 sm:pr-0">
+        <h3 className="font-display text-3xl sm:text-4xl text-white-800">{project.title}</h3>
+        <p className="font-mono text-xs sm:text-sm text-white-500 mt-2">
+          {project.role} · {project.org} · {project.year}
+        </p>
+      </div>
+
+      <div className="mt-6 inline-block rounded-lg border border-accent/40 bg-accent/5 px-4 py-3">
+        <p className="font-mono text-accent text-sm sm:text-base">{project.anchor}</p>
+      </div>
+
+      <p className="mt-6 max-w-[620px] text-white-600 font-generalsans">{project.narrative}</p>
+
+      <div className="mt-8">
+        <MediaBlock project={project} isMobile={isMobile} />
+      </div>
+
+      <div className="mt-6 flex flex-wrap gap-2">
+        {project.tags.map((tag) => (
+          <span
+            key={tag}
+            className="font-mono text-xs text-white-500 border border-black-300 rounded-full px-3 py-1"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      {(project.github || project.live) && (
+        <div className="mt-6 flex gap-6">
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-sm text-white-500 hover:text-accent transition-colors"
+            >
+              GitHub ↗
+            </a>
+          )}
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-sm text-white-500 hover:text-accent transition-colors"
+            >
+              Live ↗
+            </a>
+          )}
+        </div>
+      )}
+    </article>
+  );
+}
+
+function MediaBlock({ project, isMobile }) {
+  const { media } = project;
+
+  if (media.type === "diagram") {
+    return (
+      <figure>
+        <div className="w-full aspect-video rounded-xl border border-black-300 bg-black-200 overflow-hidden">
+          <MachineLearnDiagram />
+        </div>
+        <figcaption className="mt-2 font-mono text-xs text-white-500">{media.caption}</figcaption>
+      </figure>
+    );
+  }
+
+  if (!media.items || media.items.length === 0) {
+    return (
+      <div className="w-full aspect-video rounded-xl border border-dashed border-black-300 bg-black-200 flex items-center justify-center">
+        <span className="font-mono text-xs text-white-500">[MEDIA PENDING]</span>
+      </div>
+    );
+  }
 
   return (
-      <Card
-        className="w-[88vw] sm:w-full max-w-[650px] mx-auto md:rounded-2xl rounded-xl bg-[#181818]/85 backdrop-blur-md ring-1 ring-white/10 shadow-xl p-5 md:p-8 space-y-4 md:space-y-6"
-        isPressable
-        onPress={onPress}
-      >
-      {/* Header: project title + quick link */}
-      <CardHeader className="block text-left">
-        <div className="flex items-start gap-2">
-          <h3 className="font-semibold tracking-[-0.01em] leading-[1.1] text-[clamp(18px,5vw,24px)] text-[#FFFFFF]">
-            {project.title}
-          </h3>
-          <a
-            href={project.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="shrink-0 rounded-md px-1 py-0.5 text-sm text-[#b3b3b3] hover:text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#1db954]"
-            aria-label={`Open ${project.title} on GitHub`}
-          >
-            ↗
-          </a>
-        </div>
-        <p className="mt-2 text-[15px] leading-5 text-[#b3b3b3]">
-          {project.desc}
-        </p>
-      </CardHeader>
-
-      <CardBody className="text-sm">
-        <p className="text-[#B3B3B3]">{project.subdesc}</p>
-      </CardBody>
-
-      {/* Media section beneath description */}
-      <div className="mt-4 w-full">
-        <div className="rounded-xl border border-[#282828] bg-[#0f0f10] p-2 h-[56vw] min-h-44 max-h-80 sm:h-60 md:h-72 lg:h-80 overflow-hidden">
-          <div
-            className="flex gap-2 h-full overflow-x-auto snap-x snap-mandatory px-1 [scrollbar-width:none] [-ms-overflow-style:none]"
-            style={{ scrollBehavior: "smooth" }}
-            aria-label={`${project.title} screenshots`}
-          >
-            {(project.img || []).map((m) => (
+    <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none]">
+      {media.items.map((item) => (
+        <figure key={item.id} className="shrink-0 snap-center w-[85%] sm:w-[70%] md:w-[60%]">
+          <div className="aspect-video rounded-xl border border-black-300 bg-black-200 overflow-hidden">
+            {item.video && !isMobile ? (
+              <video
+                src={item.video}
+                poster={item.src}
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                aria-hidden="true"
+              />
+            ) : (
               <img
-                key={m.id}
-                src={m.img}
-                alt={`${project.title} screenshot ${m.id}`}
-                className="h-full w-auto rounded-lg snap-center object-cover transition-transform duration-300 hover:scale-[0.985] select-none"
+                src={item.src}
+                alt={item.alt}
+                className="w-full h-full object-cover select-none"
                 loading="lazy"
                 draggable="false"
               />
-            ))}
+            )}
           </div>
-        </div>
-      </div>
+          <figcaption className="mt-2 font-mono text-xs text-white-500">{item.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
 
-      {/* Footer: tech tags (chips) */}
-      <CardFooter className="flex flex-row flex-wrap gap-2 pt-">
-        {(project.tags || []).map((tag) => (
-          <Chip
-            key={tag.name}
-            size="sm"
-            className="bg-[#1e1e1e] text-[#b3b3b3] border border-[#404040] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+// Inline architecture diagram for machine(learn) — mirrors the 4-phase async
+// pipeline (Plan -> Implement -> Tune -> Report) described in the repo's
+// orchestrator.py, with the retry loop each of the middle two phases runs.
+function MachineLearnDiagram() {
+  const boxes = [
+    { x: 20, label: "PLAN" },
+    { x: 190, label: "IMPLEMENT", retry: true },
+    { x: 360, label: "TUNE", retry: true },
+    { x: 530, label: "REPORT" },
+  ];
+  const boxW = 130;
+  const boxH = 60;
+  const midY = 150;
+
+  return (
+    <svg viewBox="0 0 680 360" className="w-full h-full" role="img" aria-label="machine(learn) 4-phase pipeline diagram">
+      <rect x="0" y="0" width="680" height="360" fill="#141619" />
+
+      {boxes.map((box, i) => (
+        <g key={box.label}>
+          <rect
+            x={box.x}
+            y={midY}
+            width={boxW}
+            height={boxH}
+            rx="8"
+            fill="#1D2025"
+            stroke="#85A16A"
+            strokeWidth="1.5"
+          />
+          <text
+            x={box.x + boxW / 2}
+            y={midY + boxH / 2 + 5}
+            textAnchor="middle"
+            fontFamily="ui-monospace, monospace"
+            fontSize="14"
+            fill="#F2F3F5"
           >
-            {tag.name}
-          </Chip>
-        ))}
-      </CardFooter>
-    </Card>
+            {box.label}
+          </text>
+
+          {box.retry && (
+            <>
+              <path
+                d={`M ${box.x + 20} ${midY} C ${box.x - 10} ${midY - 40}, ${box.x + boxW + 10} ${midY - 40}, ${box.x + boxW - 20} ${midY}`}
+                fill="none"
+                stroke="#9BA1A9"
+                strokeWidth="1"
+                strokeDasharray="4 3"
+                markerEnd="url(#retryArrow)"
+              />
+              <text
+                x={box.x + boxW / 2}
+                y={midY - 46}
+                textAnchor="middle"
+                fontFamily="ui-monospace, monospace"
+                fontSize="10"
+                fill="#9BA1A9"
+              >
+                retry
+              </text>
+            </>
+          )}
+
+          {i < boxes.length - 1 && (
+            <>
+              <line
+                x1={box.x + boxW}
+                y1={midY + boxH / 2}
+                x2={boxes[i + 1].x}
+                y2={midY + boxH / 2}
+                stroke="#85A16A"
+                strokeWidth="1.5"
+                markerEnd="url(#phaseArrow)"
+              />
+              <text
+                x={box.x + boxW + (boxes[i + 1].x - (box.x + boxW)) / 2}
+                y={midY + boxH / 2 + 22}
+                textAnchor="middle"
+                fontFamily="ui-monospace, monospace"
+                fontSize="9"
+                fill="#9BA1A9"
+              >
+                schema
+              </text>
+            </>
+          )}
+        </g>
+      ))}
+
+      <defs>
+        <marker id="phaseArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#85A16A" />
+        </marker>
+        <marker id="retryArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#9BA1A9" />
+        </marker>
+      </defs>
+    </svg>
   );
 }

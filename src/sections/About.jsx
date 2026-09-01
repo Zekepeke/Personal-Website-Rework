@@ -19,7 +19,7 @@ const SPAN_DIMENSIONS = {
 
 const About = () => {
   return (
-    <section className="c-space my-20" id="about">
+    <section className="c-space my-20 scroll-mt-[84px] sm:scroll-mt-[96px]" id="about">
       {/* scoped to the About photo board only */}
       <style>{`
         .about-photo-grid {

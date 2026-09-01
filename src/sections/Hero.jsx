@@ -13,7 +13,7 @@ const Hero = () => {
   }, [])
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden" id="home">
+    <section className="relative min-h-screen w-full overflow-hidden scroll-mt-[84px] sm:scroll-mt-[96px]" id="home">
       {/* Background media */}
       <div className="absolute inset-0 z-0 bg-black-100">
         {showMedia && (
