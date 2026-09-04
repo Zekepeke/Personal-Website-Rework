@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { tier1Projects, tier2Projects, githubRepoCount, githubProfileUrl } from "../constants/projectsData";
+import { tier1Projects, githubRepoCount, githubProfileUrl } from "../constants/projectsData";
 
 const TOTAL = tier1Projects.length;
 
@@ -12,7 +12,7 @@ export default function Projects() {
   const isMobileScrollSync = useRef(false);
 
   // Clicking a chip / index slot, or using the arrow keys, should also move
-  // the mobile scroll-snap row to match — the two are the same "active slide".
+  // the mobile scroll-snap row to match - the two are the same "active slide".
   const goToIndex = (i) => {
     setActiveIndex(i);
     const card = mobileCardRefs.current[i];
@@ -74,14 +74,14 @@ export default function Projects() {
     <section id="projects" className="c-space mt-20 overflow-x-hidden scroll-mt-[84px] sm:scroll-mt-[96px]" ref={sectionRef}>
       <p className="head-text text-center">Projects</p>
 
-      {/* TIER 1 — carousel */}
+      {/* TIER 1 - carousel */}
       <div
         role="region"
         aria-label="Featured projects carousel"
         className="mt-14"
       >
-        {/* Index sits above the carousel on every breakpoint — scrolling chip
-            row on mobile, centered row on desktop — so it's visible before
+        {/* Index sits above the carousel on every breakpoint - scrolling chip
+            row on mobile, centered row on desktop - so it's visible before
             you've scrolled past it, and arrow-key nav becomes a shortcut
             rather than the only discoverable way to switch slides. */}
         <IndexNav
@@ -119,30 +119,8 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* TIER 2 — also built */}
-      <div className="mt-10 md:mt-24">
-        <p className="font-mono text-sm text-white-500 mb-4">Also built</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-1 border-t border-black-300">
-          {tier2Projects.map((project) => (
-            <a
-              key={project.id}
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block py-3 border-b border-black-300 font-mono text-sm text-white-500 hover:text-accent transition-colors leading-snug"
-            >
-              <span className="text-white-800">{project.name}</span>
-              {" — "}
-              {project.stack}
-              {" — "}
-              {project.result}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* TIER 3 — full repo list */}
-      <div className="mt-10 text-center">
+      {/* TIER 3 - full repo list */}
+      <div className="mt-10 md:mt-16 text-center">
         <a
           href={githubProfileUrl}
           target="_blank"
@@ -181,10 +159,10 @@ function IndexNav({ activeIndex, setActiveIndex, className }) {
 function Tier1Slide({ project, isMobile }) {
   return (
     <article
-      aria-label={`${String(project.index).padStart(2, "0")} of ${String(TOTAL).padStart(2, "0")} — ${project.title}`}
+      aria-label={`${String(project.index).padStart(2, "0")} of ${String(TOTAL).padStart(2, "0")} - ${project.title}`}
       className="relative max-w-4xl mx-auto"
     >
-      {/* Inset pill with its own backdrop, not flush text at the corner —
+      {/* Inset pill with its own backdrop, not flush text at the corner -
           plain top-0 right-0 text had no backdrop, so mid-swipe on mobile
           (adjacent card peeking in) it visually blended into whatever was
           behind it and read as clipped. */}
@@ -303,7 +281,7 @@ function MediaBlock({ project, isMobile }) {
   );
 }
 
-// Inline architecture diagram for machine(learn) — mirrors the 4-phase async
+// Inline architecture diagram for machine(learn) - mirrors the 4-phase async
 // pipeline (Plan -> Implement -> Tune -> Report) described in the repo's
 // orchestrator.py, with the retry loop each of the middle two phases runs.
 function MachineLearnDiagram() {

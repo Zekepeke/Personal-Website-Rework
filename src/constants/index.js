@@ -45,7 +45,6 @@ export const workExperiences = [
     location: "Chicago, IL",
     duration: "Jun 2026 – Aug 2026",
     headline: "100-document batch: ~2 hours to 11 minutes",
-    narrative: "[JPMORGAN NARRATIVE]",
     points: [
       "Design and build the ingestion layer of Hermes, an internal document processing platform converting invoices and contracts (PDF, PNG) into schema-validated Delta tables, applying Strategy, Factory, and Adapter patterns so new file formats and parsers drop in without pipeline code changes.",
       "Implement validation gates for the LLM mapping job, layering deterministic field checks with an LLM verification pass and routing malformed records to a Dead Letter Queue, with JSON schemas and guardrail prompts loaded from Delta tables rather than hardcoded.",
@@ -60,7 +59,6 @@ export const workExperiences = [
     location: "West Lafayette, IN",
     duration: "Sep 2025 – May 2026",
     headline: "+60% R-Precision Top-3 over baseline",
-    narrative: "[PURDUE NARRATIVE]",
     points: [
       "Extended PCMDM, a past-conditioned diffusion model for coherent long-form 3D human motion generation, training a variant on a 10K+ annotation duet dance dataset.",
       "Built PyTorch training and evaluation pipelines for Text-to-Duet and Dance Accompaniment, implementing an R-Precision harness that ranks ground-truth captions against mismatched candidates in a shared text-motion embedding space.",
