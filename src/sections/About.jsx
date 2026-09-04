@@ -66,8 +66,7 @@ const About = () => {
 
       {/* BAND 1 — Intro */}
       <div className="max-w-[620px]">
-        <h2 className="font-display text-3xl sm:text-4xl text-white-800 mb-4">About</h2>
-        <p className="font-generalsans text-white-600">[INTRO COPY]</p>
+        <h2 className="font-display text-3xl sm:text-4xl text-white-800">About Me</h2>
       </div>
 
       {/* BAND 2 — Photo board */}

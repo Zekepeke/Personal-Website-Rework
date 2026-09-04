@@ -1,0 +1,310 @@
+<title>Projects Revamp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black-100: #0B0C0E;
+    --black-200: #141619;
+    --black-300: #1D2025;
+    --black-500: #2A2E35;
+    --white-500: #9BA1A9;
+    --white-600: #C6CAD1;
+    --white-800: #F2F3F5;
+    --accent: #85A16A;
+    --bg-page: #121212;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg-page);
+    color: var(--white-800);
+    font-family: 'Inter', system-ui, sans-serif; /* stand-in for General Sans */
+    margin: 0;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 20px 120px; }
+  .review-banner {
+    background: var(--black-200);
+    border: 1px solid var(--black-300);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 44px;
+    font-size: 13px;
+    color: var(--white-600);
+    line-height: 1.6;
+  }
+  .review-banner b { color: var(--white-800); }
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  h2.display {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--white-800);
+    margin: 0 0 16px;
+  }
+  .note { font-size: 13px; color: var(--white-600); line-height: 1.6; max-width: 640px; }
+  .card {
+    background: var(--black-200);
+    border: 1px solid var(--black-300);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .tag { font-family: 'Inter', monospace; font-size: 11px; color: var(--white-500); border: 1px solid var(--black-300); border-radius: 999px; padding: 3px 10px; display: inline-block; margin: 0 6px 6px 0; }
+  .draft-label { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); background: rgba(133,161,106,.12); border: 1px solid rgba(133,161,106,.4); border-radius: 4px; padding: 2px 7px; margin-left: 8px; }
+
+  /* --- phone frame for mobile repro --- */
+  .phone {
+    width: 360px;
+    max-width: 100%;
+    border: 1px solid var(--black-300);
+    border-radius: 20px;
+    padding: 10px;
+    background: #000;
+    margin: 0 auto;
+  }
+  .phone-screen {
+    background: var(--bg-page);
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 16px 14px;
+    position: relative;
+  }
+  .phone-label { text-align: center; font-size: 11px; color: var(--white-500); margin-top: 8px; font-family: 'Inter', monospace; }
+
+  /* mobile scroll row repro */
+  .m-row { display: flex; overflow: hidden; margin: 0 -14px; }
+  .m-card { flex: 0 0 100%; padding: 0 14px; position: relative; }
+  .m-card.peek { flex-basis: 22%; opacity: .55; }
+
+  .badge-old {
+    position: absolute; top: 0; right: 14px;
+    font-family: 'Inter', monospace; font-size: 11px; color: var(--white-500);
+  }
+  .badge-new {
+    position: absolute; top: 6px; right: 20px;
+    font-family: 'Inter', monospace; font-size: 11px; color: var(--white-500);
+    background: rgba(18,18,18,.85);
+    border: 1px solid var(--black-300);
+    border-radius: 999px;
+    padding: 3px 9px;
+    backdrop-filter: blur(2px);
+  }
+  .m-title { font-family: 'Instrument Serif', serif; font-size: 22px; padding-right: 46px; }
+  .m-sub { font-family: 'Inter', monospace; font-size: 10px; color: var(--white-500); margin-top: 4px; }
+
+  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; }
+  @media (max-width: 700px) { .before-after { grid-template-columns: 1fr; } }
+  .ba-label { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; margin-bottom: 10px; text-align: center; }
+  .ba-label.bad { color: #d98a7a; }
+  .ba-label.good { color: var(--accent); }
+
+  /* index nav mock */
+  .idx-nav { display: flex; gap: 22px; font-family: 'Inter', monospace; font-size: 13px; }
+  .idx-nav span { padding-bottom: 4px; border-bottom: 2px solid transparent; color: var(--white-500); }
+  .idx-nav span.active { color: var(--white-800); border-color: var(--accent); }
+
+  /* radio choice cards (About intro) */
+  .choice-card { background: var(--black-200); border: 1px solid var(--black-300); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .choice-card.selected { border-color: var(--accent); background: rgba(133,161,106,.06); }
+  .choice-card label.opt-head { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; }
+  .choice-card input[type="radio"] { accent-color: var(--accent); width: 15px; height: 15px; margin-top: 3px; flex-shrink: 0; }
+  .queue-btn { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--black-100); background: var(--accent); border: none; border-radius: 6px; padding: 10px 18px; cursor: pointer; margin-top: 6px; }
+  .queue-btn:hover { opacity: .9; }
+  .queue-status { font-size: 12px; color: var(--white-500); margin-top: 10px; min-height: 16px; }
+
+  img.proj-img { width: 100%; display: block; border-radius: 8px; }
+</style>
+
+<div class="wrap">
+  <div class="review-banner">
+    <b>Review surface</b> — proposed fixes for the Projects carousel (mobile badge clipping + index-nav placement) and draft narrative/caption copy, plus two options for the About intro. Nothing here is live code yet — annotate anything you want changed, use the picker for the About intro, and comment on any draft copy you want rewritten.
+  </div>
+
+  <p class="section-label">About section</p>
+  <h2 class="display">Header &amp; intro copy</h2>
+  <p class="note">Right now the header says "About" and the intro line under it just says "Cool Pictures" — a leftover placeholder, not a decision. Two small picks:</p>
+
+  <form id="header-form" data-lavish-question="about-header">
+    <div class="choice-card selected" id="card-header-me">
+      <label class="opt-head">
+        <input type="radio" name="header" value="About Me" checked onchange="pickHeader('About Me')">
+        <span><b>"About Me"</b> — a little warmer/more direct, common on personal sites.</span>
+      </label>
+    </div>
+    <div class="choice-card" id="card-header-plain">
+      <label class="opt-head">
+        <input type="radio" name="header" value="About" onchange="pickHeader('About')">
+        <span><b>"About"</b> — stays terse, matches the one-word section labels elsewhere (Work, Projects).</span>
+      </label>
+    </div>
+  </form>
+
+  <p class="note" style="margin-top:20px;">And a real intro line — one sentence, grounded in what's already on the page (Purdue CS '28, JPMorgan intern, MLT/Capital One fellow, Guatemala roots) so it doesn't read like generic filler:</p>
+
+  <form id="intro-form" data-lavish-question="about-intro" onsubmit="event.preventDefault(); queueIntro();">
+    <div class="choice-card selected" id="card-intro-0">
+      <label class="opt-head">
+        <input type="radio" name="intro" value="0" checked onchange="pickIntro(0)">
+        <span>"CS @ Purdue, MLT Career Prep Fellow, and probably mid-Sudoku puzzle right now. Grew up between Guatemala and the US — this page is the personal half of the portfolio."</span>
+      </label>
+    </div>
+    <div class="choice-card" id="card-intro-1">
+      <label class="opt-head">
+        <input type="radio" name="intro" value="1" onchange="pickIntro(1)">
+        <span>"Off the clock, it's guitar, Sudoku, and whatever Tatiana and I are watching next. Here's the rest of me, beyond the projects and internships."</span>
+      </label>
+    </div>
+    <div class="choice-card" id="card-intro-2">
+      <label class="opt-head">
+        <input type="radio" name="intro" value="2" onchange="pickIntro(2)">
+        <span>"The short version: CS student, first-gen, building things. The long version is a photo board, a Sudoku ranking, and a strong opinion about Better Call Saul."</span>
+      </label>
+    </div>
+    <button type="submit" class="queue-btn">Queue header + intro pick</button>
+    <div class="queue-status" id="intro-status"></div>
+  </form>
+
+  <p class="section-label" style="margin-top:54px;">Projects — bug</p>
+  <h2 class="display">Mobile index badge</h2>
+  <p class="note">Reproduced the mid-swipe state on a 360px phone frame below. The badge is plain text with no backdrop, sitting flush at <code>top-0 right-0</code> — so wherever it lands relative to the neighboring card's edge, it visually blends into whatever image is behind/next to it and reads as "cut off." Fix: pull it in slightly and give it its own solid pill background, so it's legible regardless of what's underneath, mid-swipe or not.</p>
+
+  <div class="before-after">
+    <div>
+      <p class="ba-label bad">Before</p>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="m-row">
+            <div class="m-card" style="flex-basis: 82%;">
+              <span class="badge-old">02 / 04</span>
+              <p class="m-title" style="padding-right:0;">Extended PCMDM</p>
+              <p class="m-sub">Undergraduate Researcher · Purdue · 2025–2026</p>
+            </div>
+            <div class="m-card peek">
+              <img class="proj-img" src="pcmdm-demo-poster.jpg" style="border-radius:6px;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-label">badge text has no backdrop — blends into whatever's behind it</p>
+    </div>
+    <div>
+      <p class="ba-label good">After</p>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="m-row">
+            <div class="m-card" style="flex-basis: 82%;">
+              <span class="badge-new">02 / 04</span>
+              <p class="m-title">Extended PCMDM</p>
+              <p class="m-sub">Undergraduate Researcher · Purdue · 2025–2026</p>
+            </div>
+            <div class="m-card peek">
+              <img class="proj-img" src="pcmdm-demo-poster.jpg" style="border-radius:6px;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-label">pill background + inset — always legible</p>
+    </div>
+  </div>
+
+  <p class="section-label" style="margin-top:54px;">Projects — layout</p>
+  <h2 class="display">Index nav placement</h2>
+  <p class="note">Right now the numbered index (01–04) sits above the carousel on mobile, but below it on desktop — and desktop navigation otherwise relies on arrow keys, which isn't obviously discoverable. Moving the index above the slide on desktop too makes it consistent with mobile and puts the click target in view immediately, arrow keys become a bonus shortcut instead of the only way in.</p>
+
+  <div class="before-after">
+    <div>
+      <p class="ba-label bad">Before (desktop)</p>
+      <div class="card">
+        <p style="font-family:'Instrument Serif',serif;font-size:22px;margin:0 0 6px;">Extended PCMDM</p>
+        <p class="note" style="margin:0 0 14px;">— slide content —</p>
+        <div class="idx-nav">
+          <span>01 Reachy Mini</span><span class="active">02 Extended PCMDM</span><span>03 machine(learn)</span><span>04 Price is Right</span>
+        </div>
+        <p class="note" style="margin-top:6px;font-size:11px;">↑ nav sits below, after you've already scrolled past it</p>
+      </div>
+    </div>
+    <div>
+      <p class="ba-label good">After (desktop &amp; mobile)</p>
+      <div class="card">
+        <div class="idx-nav" style="margin-bottom:14px;">
+          <span>01 Reachy Mini</span><span class="active">02 Extended PCMDM</span><span>03 machine(learn)</span><span>04 Price is Right</span>
+        </div>
+        <p style="font-family:'Instrument Serif',serif;font-size:22px;margin:0 0 6px;">Extended PCMDM</p>
+        <p class="note" style="margin:0;">— slide content —</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label" style="margin-top:54px;">Projects — narrative &amp; captions</p>
+  <h2 class="display">Draft copy</h2>
+  <p class="note">Drafted from what's already in the data (role/org/year/anchor/tags) plus what's visible in the photos — not embellished beyond that. You know the real story better than I do, so treat these as a starting point: comment on anything wrong or too generic and I'll rewrite it.</p>
+
+  <div class="card">
+    <p style="font-family:'Instrument Serif',serif;font-size:20px;margin:0 0 4px;">01 · Reachy Mini <span class="draft-label">draft</span></p>
+    <p class="note" style="margin:6px 0;">"A Raspberry Pi 5-powered robot head — real-time perception (OpenCV, MediaPipe, PyTorch) behind a FastAPI server. Most of the build was killing cold-start latency: time-to-first-audio went from ~60 seconds down to under 2."</p>
+    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">
+      <div style="width:160px;">
+        <img class="proj-img" src="reachy1.jpeg">
+        <p class="note" style="font-size:11px;margin-top:4px;">"The 3D-printed head shell and internals, mid-assembly." <span class="draft-label">draft</span></p>
+      </div>
+      <div style="width:160px;">
+        <img class="proj-img" src="reachy4.jpeg">
+        <p class="note" style="font-size:11px;margin-top:4px;">"CAD model of the head — camera, compute board, and mounts." <span class="draft-label">draft</span></p>
+      </div>
+    </div>
+    <p class="note" style="margin-top:10px;font-size:11px;">Side note: reachy2.jpeg and reachy3.jpeg exist in <code>public/projects/reachy/</code> but aren't wired into the carousel — want them added as a 3rd/4th photo?</p>
+  </div>
+
+  <div class="card">
+    <p style="font-family:'Instrument Serif',serif;font-size:20px;margin:0 0 4px;">02 · Extended PCMDM <span class="draft-label">draft</span></p>
+    <p class="note" style="margin:6px 0;">"Extended an existing motion-diffusion model to generate two-person interactions instead of single-body motion, as an undergraduate researcher at Purdue. Pushed R-Precision Top-3 — how well the generated motion matches its text prompt — up 60% over the baseline."</p>
+    <img class="proj-img" src="pcmdm-demo-poster.jpg" style="max-width:260px;margin-top:8px;">
+    <p class="note" style="font-size:11px;margin-top:4px;">"Two generated figures walking in sync from a text prompt." <span class="draft-label">draft</span></p>
+  </div>
+
+  <div class="card">
+    <p style="font-family:'Instrument Serif',serif;font-size:20px;margin:0 0 4px;">03 · machine(learn) <span class="draft-label">draft</span></p>
+    <p class="note" style="margin:6px 0;">"An agent that runs its own ML experiments — plans an approach, implements it, tunes hyperparameters, and writes up the results. Four phases with typed handoffs between them and automatic retries when implementation or tuning fails, orchestrated on Modal."</p>
+    <p class="note" style="font-size:11px;">Diagram caption: "Plan → Implement → Tune → Report, with retries on the two middle phases." <span class="draft-label">draft</span></p>
+  </div>
+
+  <div class="card">
+    <p style="font-family:'Instrument Serif',serif;font-size:20px;margin:0 0 4px;">04 · Price is Right Glasses <span class="draft-label">draft</span></p>
+    <p class="note" style="margin:6px 0;">"An iOS app that guesses real-world prices from a photo. The FastAPI backend can call either Claude's or Gemini's vision models against the same prompt and schema, so the two providers are interchangeable and directly comparable."</p>
+    <p class="note" style="font-size:11px;">You mentioned you'll source photos for this one yourself — narrative copy above is ready whenever, media stays as-is until then.</p>
+  </div>
+</div>
+
+<script>
+  function pickHeader(v) {
+    document.getElementById('card-header-me').classList.toggle('selected', v === 'About Me');
+    document.getElementById('card-header-plain').classList.toggle('selected', v === 'About');
+  }
+  function pickIntro(i) {
+    for (let n = 0; n < 3; n++) {
+      document.getElementById('card-intro-' + n).classList.toggle('selected', n === i);
+    }
+  }
+  function queueIntro() {
+    const header = new FormData(document.getElementById('header-form')).get('header');
+    const introIdx = new FormData(document.getElementById('intro-form')).get('intro');
+    const introText = document.querySelectorAll('#intro-form .opt-head span')[introIdx].textContent;
+    window.lavish.queuePrompt(
+      'About section: use header "' + header + '" and this intro line: ' + introText,
+      {
+        tag: 'choice',
+        text: 'Header: ' + header + ' | Intro #' + introIdx,
+        element: document.getElementById('intro-form'),
+        data: { question: 'about-header-intro', header, introIdx, introText },
+      }
+    );
+    document.getElementById('intro-status').textContent = 'Queued — press "Send to Agent" to confirm, or keep annotating first.';
+  }
+</script>

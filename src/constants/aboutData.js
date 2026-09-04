@@ -8,7 +8,7 @@ export const photos = [
   {
     src: '/about/girlfriend.jpeg',
     alt: 'Tatiana',
-    caption: 'Tatiana',
+    caption: 'The amazing and cool Tatiana',
     rotate: 2,
   },
   {

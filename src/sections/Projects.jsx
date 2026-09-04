@@ -80,11 +80,14 @@ export default function Projects() {
         aria-label="Featured projects carousel"
         className="mt-14"
       >
-        {/* Mobile: scrolling chip index sits above the carousel */}
+        {/* Index sits above the carousel on every breakpoint — scrolling chip
+            row on mobile, centered row on desktop — so it's visible before
+            you've scrolled past it, and arrow-key nav becomes a shortcut
+            rather than the only discoverable way to switch slides. */}
         <IndexNav
           activeIndex={activeIndex}
           setActiveIndex={goToIndex}
-          className="flex md:hidden mb-5 gap-2 max-w-full overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] px-1"
+          className="flex mb-5 md:mb-10 gap-2 md:gap-8 md:justify-center max-w-full overflow-x-auto md:overflow-visible snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] px-1 md:px-0"
         />
 
         {/* Desktop / tablet: single active slide, no peeking side cards */}
@@ -114,13 +117,6 @@ export default function Projects() {
             </div>
           ))}
         </div>
-
-        {/* Desktop / tablet: named index below the carousel */}
-        <IndexNav
-          activeIndex={activeIndex}
-          setActiveIndex={goToIndex}
-          className="hidden md:flex mt-10 gap-8 justify-center"
-        />
       </div>
 
       {/* TIER 2 — also built */}
@@ -188,7 +184,11 @@ function Tier1Slide({ project, isMobile }) {
       aria-label={`${String(project.index).padStart(2, "0")} of ${String(TOTAL).padStart(2, "0")} — ${project.title}`}
       className="relative max-w-4xl mx-auto"
     >
-      <span className="absolute top-0 right-0 font-mono text-xs text-white-500">
+      {/* Inset pill with its own backdrop, not flush text at the corner —
+          plain top-0 right-0 text had no backdrop, so mid-swipe on mobile
+          (adjacent card peeking in) it visually blended into whatever was
+          behind it and read as clipped. */}
+      <span className="absolute top-1 right-1 sm:top-0 sm:right-0 font-mono text-xs text-white-500 bg-black-100/90 border border-black-300 rounded-full px-2.5 py-1 backdrop-blur-sm">
         {String(project.index).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
       </span>
 
