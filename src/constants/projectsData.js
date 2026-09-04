@@ -108,7 +108,37 @@ export const tier1Projects = [
   },
 ];
 
+export const tier2Projects = [
+  {
+    id: 'autograd',
+    name: 'Autograd',
+    stack: 'Python · Autodiff Engine',
+    result: 'Scalar autograd engine and MLP, checked against PyTorch gradients',
+    href: 'https://github.com/Zekepeke/autograd',
+  },
+  {
+    id: 'shop22',
+    name: 'Shop22',
+    stack: 'Next.js · Payload · Stripe',
+    result: 'Storefront with Payload CMS and Stripe checkout',
+    href: 'https://github.com/Zekepeke/shop22',
+  },
+  {
+    id: 'aircursor',
+    name: 'AirCursor',
+    stack: 'Python · MediaPipe · PyAutoGUI',
+    result: 'Hands-free cursor control via webcam hand tracking',
+    href: 'https://github.com/Zekepeke/Computer-Vision-Project',
+  },
+  {
+    id: 'zekeshot',
+    name: 'ZekeShot',
+    stack: 'Python · Pygame',
+    result: '2D arcade shooter',
+    href: 'https://github.com/Zekepeke/Zekeshot',
+  },
+];
+
 // Confirmed live via GitHub search (user:Zekepeke, forks excluded) - the repo count changes
 // over time, so re-check before reusing this number elsewhere.
-export const githubRepoCount = 33;
 export const githubProfileUrl = 'https://github.com/Zekepeke';

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { tier1Projects, githubRepoCount, githubProfileUrl } from "../constants/projectsData";
+import { tier1Projects, tier2Projects, githubProfileUrl } from "../constants/projectsData";
 
 const TOTAL = tier1Projects.length;
 
@@ -119,15 +119,37 @@ export default function Projects() {
         </div>
       </div>
 
+      {/* TIER 2 - also built */}
+      <div className="mt-10 md:mt-24">
+        <p className="font-mono text-sm text-white-500 mb-4">Also built</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-1 border-t border-black-300">
+          {tier2Projects.map((project) => (
+            <a
+              key={project.id}
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block py-3 border-b border-black-300 font-mono text-sm text-white-500 hover:text-accent transition-colors leading-snug"
+            >
+              <span className="text-white-800">{project.name}</span>
+              {" - "}
+              {project.stack}
+              {" - "}
+              {project.result}
+            </a>
+          ))}
+        </div>
+      </div>
+
       {/* TIER 3 - full repo list */}
-      <div className="mt-10 md:mt-16 text-center">
+      <div className="mt-10 text-center">
         <a
           href={githubProfileUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="font-mono text-sm text-white-500 hover:text-accent transition-colors"
         >
-          {githubRepoCount} repos on GitHub ↗
+          More on GitHub ↗
         </a>
       </div>
     </section>
