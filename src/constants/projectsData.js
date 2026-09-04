@@ -14,7 +14,7 @@ export const tier1Projects = [
     anchor: 'time-to-first-audio: ~60s to under 2s',
     narrative: 'A Raspberry Pi 5-powered robot head running real-time perception (OpenCV, MediaPipe, PyTorch) behind a FastAPI server.',
     tags: ['FastAPI', 'OpenCV', 'MediaPipe', 'PyTorch', 'Raspberry Pi 5'],
-    github: 'https://github.com/Zekepeke/Reachy-Server-Project',
+    github: 'https://github.com/Zekepeke/reachy-respeaker-testing.git',
     live: null,
     media: {
       type: 'photos',
