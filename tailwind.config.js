@@ -28,6 +28,7 @@ export default {
       fontFamily: {
         generalsans: ['General Sans', 'sans-serif'],
         display: ['Instrument Serif', 'Georgia', 'serif'],
+        caveat: ['Caveat', 'cursive'],
       },
       backgroundImage: {
         terminal: "url('/assets/terminal.png')",

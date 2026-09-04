@@ -1,5 +1,7 @@
 
 @import '@fontsource/instrument-serif/latin.css';
+@import '@fontsource/caveat/latin-500.css';
+@import '@fontsource/caveat/latin-600.css';
 
 @font-face {
   font-family: 'General Sans';

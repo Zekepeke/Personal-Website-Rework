@@ -1,0 +1,268 @@
+<title>About Section Update</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black-100: #0B0C0E;
+    --black-200: #141619;
+    --black-300: #1D2025;
+    --black-500: #2A2E35;
+    --white-500: #9BA1A9;
+    --white-600: #C6CAD1;
+    --white-800: #F2F3F5;
+    --accent: #85A16A;
+    --bg-page: #121212;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg-page);
+    color: var(--white-800);
+    font-family: 'Inter', system-ui, sans-serif; /* stand-in for General Sans, which isn't on an allowed CDN */
+    margin: 0;
+    padding: 0;
+  }
+  /* Widened to 1280px (max-w-7xl) to match the real page's outer wrapper,
+     so resizing this window actually reproduces the wide-desktop bug. */
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 20px 120px; }
+
+  .review-banner {
+    background: var(--black-200);
+    border: 1px solid var(--black-300);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 44px;
+    font-size: 13px;
+    color: var(--white-600);
+    line-height: 1.6;
+  }
+  .review-banner b { color: var(--white-800); }
+
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+
+  h2.display {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--white-800);
+    margin: 0 0 30px;
+  }
+
+  /* Photo board — Round 5 rewrite.
+     Rounds 3-4 patched symptoms (mobile crop, then a wide-desktop crop) but
+     the real root cause is the technique itself: a 12-col grid with a FIXED
+     pixel row height forces every photo's box into a shape that doesn't
+     match its own aspect ratio, so object-fit: cover always crops something
+     — the only question was how much, at which width. That will keep
+     recurring at some window size no matter how the numbers are tuned.
+
+     Fix: stop forcing a shape. Use CSS columns (Pinterest-style masonry) —
+     each photo keeps its own natural aspect ratio at every column count, so
+     nothing is ever cropped, on any device, by construction. */
+  .about-photo-grid {
+    column-count: 3;
+    column-gap: 16px;
+  }
+  @media (max-width: 900px) {
+    .about-photo-grid { column-count: 2; }
+  }
+  @media (max-width: 480px) {
+    .about-photo-grid { column-count: 1; }
+  }
+  figure {
+    margin: 0 0 20px;
+    display: inline-block;
+    width: 100%;
+    break-inside: avoid;
+  }
+  /* Round 6: captions used to sit in normal flow below a ROTATED frame —
+     rotation doesn't change the box's layout size, only how it paints, so
+     the tilted corner visually overhung into the caption text below it.
+     Fix: fold the caption into the frame itself, Polaroid-style, so it
+     rotates as one rigid unit with the photo and never collides. */
+  .about-photo-frame {
+    transform: rotate(var(--rot, 0deg));
+    transition: transform 250ms ease-out;
+    background: var(--white-800);
+    border: 8px solid var(--white-800);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.15), 0 6px 16px rgba(0,0,0,.35);
+    display: flex;
+    flex-direction: column;
+  }
+  .about-photo-frame:hover { transform: rotate(0deg) scale(1.02); }
+  .about-photo-frame .photo-clip { overflow: hidden; }
+  .about-photo-frame img { width: 100%; height: auto; display: block; }
+  .about-photo-frame figcaption {
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--black-200);
+    text-align: center;
+    padding: 8px 6px 4px;
+  }
+  @media (prefers-reduced-motion: reduce), (max-width: 480px) {
+    .about-photo-frame { transform: none !important; }
+  }
+
+  /* Facts */
+  .facts { max-width: 620px; margin-top: 54px; }
+  .fact-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 12px 0;
+    border-top: 0.5px solid var(--black-300);
+  }
+  .fact-row:first-child { border-top: none; }
+  .fact-label {
+    font-family: 'Inter', monospace;
+    font-size: 13px;
+    color: var(--white-500);
+    flex-shrink: 0;
+  }
+  .fact-value { font-size: 15px; color: var(--white-800); text-align: right; }
+
+  .swap-note {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(133,161,106,0.12);
+    border: 1px solid rgba(133,161,106,0.4);
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin-left: 8px;
+  }
+
+  /* Layout choice comparison */
+  .choice-card {
+    background: var(--black-200);
+    border: 1px solid var(--black-300);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    transition: border-color 150ms, background 150ms;
+  }
+  .choice-card.selected {
+    border-color: var(--accent);
+    background: rgba(133,161,106,0.06);
+  }
+  .choice-card label.opt-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--white-800);
+    margin-bottom: 14px;
+  }
+  .choice-card input[type="radio"] { accent-color: var(--accent); width: 15px; height: 15px; }
+  .mini-fact { border-top: 0.5px solid var(--black-300); }
+  .mini-fact:first-of-type { border-top: none; }
+
+  .queue-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black-100);
+    background: var(--accent);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  .queue-btn:hover { opacity: 0.9; }
+  .queue-status {
+    font-size: 12px;
+    color: var(--white-500);
+    margin-top: 10px;
+    min-height: 16px;
+  }
+</style>
+
+<div class="wrap">
+  <div class="review-banner">
+    <b>Review surface</b> — proposed content for the About section on your site (dark background, Instrument Serif headings, Inter standing in for General Sans since it isn't on an allowed font CDN). "Band 2" / "Band 3" are just internal labels from your <code>About.jsx</code> code for the two blocks below — they won't appear on the live site. Nothing here is live code yet — annotate anything you want changed. When you're done, send feedback and I'll wire it into <code>aboutData.js</code> and <code>About.jsx</code>.
+  </div>
+
+  <p class="section-label">Band 2 — internal code label, not shown on site</p>
+  <h2 class="display">Photo board</h2>
+  <p style="font-size:12px;color:var(--accent);margin:-20px 0 24px;">Round 6 — captions moved inside the frame, Polaroid-style (handwriting font), so they rotate as one piece with the photo instead of sitting in flow below it where the tilted corner could overhang them.</p>
+  <div class="about-photo-grid">
+    <figure>
+      <div class="about-photo-frame" style="--rot: -2.5deg">
+        <div class="photo-clip"><img src="mountains.jpeg" alt="Mountains at El Hato Verde, Antigua, Guatemala"></div>
+        <figcaption>El Hato Verde, Antigua, Guatemala</figcaption>
+      </div>
+    </figure>
+    <figure>
+      <div class="about-photo-frame" style="--rot: 2deg">
+        <div class="photo-clip"><img src="girlfriend.jpeg" alt="Tatiana"></div>
+        <figcaption>Tatiana</figcaption>
+      </div>
+    </figure>
+    <figure>
+      <div class="about-photo-frame" style="--rot: -1.5deg">
+        <div class="photo-clip"><img src="mog.jpeg" alt="Lake Atitlán, Guatemala"></div>
+        <figcaption>Lake Atitlán, Guatemala</figcaption>
+      </div>
+    </figure>
+    <figure>
+      <div class="about-photo-frame" style="--rot: 3deg">
+        <div class="photo-clip"><img src="cat.jpeg" alt="My cat, Tyson"></div>
+        <figcaption>Tyson</figcaption>
+      </div>
+    </figure>
+    <figure>
+      <div class="about-photo-frame" style="--rot: -2deg">
+        <div class="photo-clip"><img src="guitar.jpeg" alt="Playing a Stratocaster at the Chicago Music Exchange"></div>
+        <figcaption>Chicago Music Exchange</figcaption>
+      </div>
+    </figure>
+  </div>
+
+  <p class="section-label" style="margin-top:54px;">Band 3 — internal code label, not shown on site</p>
+  <h2 class="display">Facts</h2>
+  <div class="facts">
+    <div class="fact-row">
+      <span class="fact-label">Sudoku ranking</span>
+      <span class="fact-value">Grandmaster · Top 1% best time</span>
+    </div>
+    <div class="fact-row">
+      <span class="fact-label">Guitar</span>
+      <span class="fact-value">PRS SE Custom 24</span>
+    </div>
+    <div class="fact-row">
+      <span class="fact-label">Programs</span>
+      <span class="fact-value">MLT Career Prep Fellow · Capital One First Gen Focus</span>
+    </div>
+    <div class="fact-row">
+      <span class="fact-label">Watching</span>
+      <span class="fact-value">Gravity Falls</span>
+    </div>
+    <div class="fact-row">
+      <span class="fact-label">Favorites</span>
+      <span class="fact-value">Better Call Saul · Star Wars: A New Hope · Spider-Man 2 · Rain Man · Forrest Gump</span>
+    </div>
+  </div>
+
+  <p style="font-size:13px;color:var(--white-600);max-width:620px;margin-top:16px;line-height:1.6;">
+    Parked for later, not building now: the expandable "click stack"/cookbook component from React Bits. I'll add a <code>TODO.md</code> at the project root to track this and future ideas so it doesn't get lost — let me know if you'd rather it live somewhere else.
+  </p>
+  <p style="font-size:13px;color:var(--white-600);max-width:620px;margin-top:10px;line-height:1.6;">
+    Cooking / favorite food — reply with the dish (and say if you want one of your cooking photos added to the board above) and I'll wire both in.
+  </p>
+</div>
+

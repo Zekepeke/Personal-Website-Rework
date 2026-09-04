@@ -1,54 +1,66 @@
 import { photos, facts } from "../constants/aboutData"
 import NowPlaying from "../components/NowPlaying"
 
-// Alternating tilt per tile index, capped at 3deg — see BAND 2 spec.
-const ROTATIONS = [-2.5, 2, -1.5, 3, -2]
-
-const SPAN_CLASS = {
-  sm: "about-span-sm",
-  md: "about-span-md",
-  lg: "about-span-lg",
-}
-
-// Intrinsic size hints per span so the browser can reserve layout space.
-const SPAN_DIMENSIONS = {
-  sm: { width: 600, height: 400 },
-  md: { width: 800, height: 400 },
-  lg: { width: 800, height: 800 },
-}
-
 const About = () => {
   return (
     <section className="c-space my-20 scroll-mt-[84px] sm:scroll-mt-[96px]" id="about">
-      {/* scoped to the About photo board only */}
+      {/* scoped to the About photo board only.
+          Masonry (CSS columns) instead of a fixed-row-height grid: every
+          photo keeps its own aspect ratio at any column count, so nothing
+          is ever cropped, at any window width. Captions live inside the
+          tilted frame (Polaroid-style) so they rotate as one rigid piece
+          with the photo instead of sitting in flow below it, where the
+          tilted corner could visually overhang the text. */}
       <style>{`
         .about-photo-grid {
-          display: grid;
-          grid-template-columns: repeat(12, minmax(0, 1fr));
-          grid-auto-rows: 180px;
-          grid-auto-flow: dense;
-          gap: 16px;
+          column-count: 3;
+          column-gap: 16px;
         }
-        .about-span-sm { grid-column: span 3; grid-row: span 1; }
-        .about-span-md { grid-column: span 4; grid-row: span 1; }
-        .about-span-lg { grid-column: span 5; grid-row: span 2; }
+        @media (max-width: 900px) {
+          .about-photo-grid { column-count: 2; }
+        }
+        @media (max-width: 480px) {
+          .about-photo-grid { column-count: 1; }
+        }
+
+        .about-photo-figure {
+          margin: 0 0 20px;
+          display: inline-block;
+          width: 100%;
+          break-inside: avoid;
+        }
 
         .about-photo-frame {
           transform: rotate(var(--rot, 0deg));
           transition: transform 250ms ease-out;
+          background: #F2F3F5; /* white-800 */
+          border: 8px solid #F2F3F5; /* white-800 */
+          box-shadow: inset 0 0 0 1px rgba(0,0,0,.15), 0 6px 16px rgba(0,0,0,.35);
+          display: flex;
+          flex-direction: column;
         }
         .about-photo-frame:hover {
           transform: rotate(0deg) scale(1.02);
         }
-
-        @media (max-width: 640px) {
-          .about-photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-          .about-span-sm, .about-span-md, .about-span-lg { grid-column: span 1; grid-row: span 1; }
-          .about-photo-frame { transform: none !important; }
+        .about-photo-clip {
+          overflow: hidden;
+        }
+        .about-photo-frame img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+        .about-photo-frame figcaption {
+          font-family: 'Caveat', cursive;
+          font-size: 20px;
+          line-height: 1.2;
+          color: #141619; /* black-200 */
+          text-align: center;
+          padding: 8px 6px 4px;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-          .about-photo-frame:hover { transform: rotate(var(--rot, 0deg)); }
+        @media (prefers-reduced-motion: reduce), (max-width: 480px) {
+          .about-photo-frame { transform: none !important; }
         }
       `}</style>
 
@@ -60,27 +72,16 @@ const About = () => {
 
       {/* BAND 2 — Photo board */}
       <div className="about-photo-grid mt-14">
-        {photos.map((photo, i) => {
-          const { width, height } = SPAN_DIMENSIONS[photo.span]
-          return (
-            <figure key={photo.src} className={`${SPAN_CLASS[photo.span]} h-full flex flex-col gap-2`}>
-              <div
-                className="about-photo-frame relative flex-1 min-h-0 border-8 border-white-800 shadow-inner overflow-hidden"
-                style={{ "--rot": `${ROTATIONS[i % ROTATIONS.length]}deg` }}
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={width}
-                  height={height}
-                  loading="lazy"
-                  className="w-full h-full object-cover block"
-                />
+        {photos.map((photo) => (
+          <figure key={photo.src} className="about-photo-figure">
+            <div className="about-photo-frame" style={{ "--rot": `${photo.rotate}deg` }}>
+              <div className="about-photo-clip">
+                <img src={photo.src} alt={photo.alt} loading="lazy" />
               </div>
-              <figcaption className="font-mono text-xs text-white-500">{photo.caption}</figcaption>
-            </figure>
-          )
-        })}
+              <figcaption>{photo.caption}</figcaption>
+            </div>
+          </figure>
+        ))}
       </div>
 
       {/* BAND 3 — Facts */}

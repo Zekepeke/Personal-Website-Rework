@@ -1,0 +1,417 @@
+<title>Hero Section Concepts</title>
+<style>
+  @font-face {
+    font-family: 'General Sans';
+    src: url('fonts/general-sans-400.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'General Sans';
+    src: url('fonts/general-sans-500.woff2') format('woff2');
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'General Sans';
+    src: url('fonts/general-sans-600.woff2') format('woff2');
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'General Sans';
+    src: url('fonts/general-sans-700.woff2') format('woff2');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+
+  :root {
+    --black-100:#0B0C0E; --black-200:#141619; --black-300:#1D2025;
+    --black-500:#2A2E35; --black-600:#101114;
+    --white:#FFFFFF; --white-500:#9BA1A9; --white-600:#C6CAD1; --white-800:#F2F3F5;
+    --accent:#85A16A; --accent-2:#A99BD4; --accent-3:#9BC4A8;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--black-600);
+    color: var(--white-800);
+    font-family: 'General Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: 'Instrument Serif', Georgia, serif; }
+
+  /* ---- chrome / toolbar ---- */
+  .toolbar {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(11,12,14,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--black-300);
+    padding: 14px 20px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+  }
+  .toolbar h1 {
+    font-size: 15px; font-weight: 600; color: var(--white-800); margin: 0;
+    margin-right: 4px; white-space: nowrap;
+  }
+  .toolbar .hint { font-size: 12px; color: var(--white-500); margin-right: auto; }
+
+  .segmented {
+    display: inline-flex; gap: 2px; padding: 3px;
+    background: var(--black-200); border: 1px solid var(--black-300); border-radius: 10px;
+  }
+  .segmented button {
+    appearance: none; border: none; cursor: pointer;
+    font-family: inherit; font-size: 12.5px; font-weight: 500;
+    color: var(--white-500); background: transparent;
+    padding: 7px 12px; border-radius: 7px; transition: all .15s ease;
+    white-space: nowrap;
+  }
+  .segmented button:hover { color: var(--white-800); }
+  .segmented button[aria-pressed="true"] {
+    background: var(--black-500); color: var(--white); box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset;
+  }
+  .segmented button .dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 999px; margin-right: 6px;
+    background: var(--white-500);
+  }
+  .segmented button[aria-pressed="true"] .dot { background: var(--accent); }
+
+  /* ---- device frame ---- */
+  main { padding: 28px 20px 60px; display: flex; justify-content: center; }
+  .frame-wrap { width: 100%; max-width: 1180px; transition: max-width .25s ease; }
+  .frame-wrap[data-device="mobile"] { max-width: 400px; }
+
+  .browser-chrome {
+    border: 1px solid var(--black-300);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--black-200);
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
+  }
+  .browser-bar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; background: var(--black-200); border-bottom: 1px solid var(--black-300);
+  }
+  .browser-dots { display: flex; gap: 6px; }
+  .browser-dots span { width: 10px; height: 10px; border-radius: 999px; background: var(--black-500); }
+  .browser-url {
+    flex: 1; min-width: 0;
+    background: var(--black-300); color: var(--white-500);
+    font-size: 11.5px; padding: 5px 10px; border-radius: 999px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    text-align: center;
+  }
+
+  .stage { position: relative; min-height: 640px; overflow: hidden; }
+  .frame-wrap[data-device="mobile"] .stage { min-height: 720px; }
+  .variant { position: absolute; inset: 0; display: none; }
+  .variant.is-active { display: block; }
+
+  .caption {
+    max-width: 1180px; margin: 0 auto 18px; padding: 0 4px;
+  }
+  .caption p { font-size: 13px; color: var(--white-500); line-height: 1.6; margin: 0; }
+  .caption strong { color: var(--white-800); font-weight: 600; }
+
+  /* =========================================================
+     Variant A — Refined Current (video/poster hero, kept close
+     to the shipped layout, with an availability pill + scroll cue)
+     ========================================================= */
+  .vA-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, #0e1410 0%, #0B0C0E 55%, #0B0C0E 100%),
+                url('hero-poster.jpeg') center 30% / cover no-repeat;
+    background-blend-mode: overlay;
+  }
+  .vA-scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.30) 45%, rgba(0,0,0,0.78) 100%);
+  }
+  .vA-glow {
+    position: absolute; inset: 0; opacity: .5; mix-blend-mode: screen;
+    background: radial-gradient(600px 380px at 18% 30%, rgba(133,161,106,0.22), transparent 70%);
+    animation: driftGlow 9s ease-in-out infinite;
+  }
+  @keyframes driftGlow {
+    0%, 100% { transform: translate3d(0,0,0) scale(1); }
+    50% { transform: translate3d(2%, -2%, 0) scale(1.05); }
+  }
+  .vA-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 44px; }
+  .frame-wrap[data-device="mobile"] .vA-content { padding: 0 20px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    width: fit-content; padding: 6px 12px 6px 10px; border-radius: 999px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+    font-size: 12.5px; color: var(--white-600); margin-bottom: 18px;
+    backdrop-filter: blur(6px);
+  }
+  .pill-dot { position: relative; width: 8px; height: 8px; border-radius: 999px; background: var(--accent); flex: none; }
+  .pill-dot::after {
+    content: ''; position: absolute; inset: -4px; border-radius: 999px; background: var(--accent);
+    opacity: .55; animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse { 0% { transform: scale(0.6); opacity: .6; } 100% { transform: scale(2.1); opacity: 0; } }
+
+  .vA-content h1 {
+    font-size: clamp(34px, 5.4vw, 58px); font-weight: 800; line-height: 1.05;
+    margin: 0; color: var(--white); max-width: 640px; letter-spacing: -0.01em;
+  }
+  .vA-content p.sub {
+    margin: 16px 0 0; max-width: 560px; font-size: 16.5px; line-height: 1.55;
+    color: rgba(255,255,255,0.86);
+  }
+  .cta-row { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--black-300); color: var(--white); border: 1px solid rgba(255,255,255,0.06);
+    padding: 12px 20px; border-radius: 9px; font-size: 14.5px; font-weight: 500; cursor: pointer;
+    transition: transform .12s ease;
+  }
+  .btn-primary:active { transform: scale(0.96); }
+  .btn-outline {
+    display: inline-flex; align-items: center; padding: 12px 20px; border-radius: 9px;
+    border: 1px solid rgba(255,255,255,0.35); color: var(--white); font-size: 14.5px; cursor: pointer;
+    background: transparent; transition: background .15s ease, transform .12s ease;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.08); }
+  .btn-outline:active { transform: scale(0.96); }
+
+  .scroll-cue {
+    position: absolute; left: 44px; bottom: 26px; z-index: 2;
+    display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--white-500);
+  }
+  .frame-wrap[data-device="mobile"] .scroll-cue { left: 20px; }
+  .scroll-cue .arrow { animation: bob 1.6s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+  /* =========================================================
+     Variant B — Split layout with a terminal panel
+     ========================================================= */
+  .vB {
+    height: 100%;
+    position: relative;
+    background: radial-gradient(1100px 700px at 100% -10%, rgba(133,161,106,0.14), transparent 60%), var(--black-100);
+    overflow: hidden;
+  }
+  .vB::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 40px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 40px);
+    -webkit-mask-image: radial-gradient(ellipse 90% 80% at 65% 40%, black 45%, transparent 92%);
+    mask-image: radial-gradient(ellipse 90% 80% at 65% 40%, black 45%, transparent 92%);
+  }
+  .vB-grid { position: relative; z-index: 1; }
+  .vB-grid {
+    height: 100%; display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center;
+    gap: 40px; padding: 0 44px;
+  }
+  .frame-wrap[data-device="mobile"] .vB-grid { grid-template-columns: 1fr; padding: 28px 20px; gap: 26px; height: auto; overflow-y: auto; }
+  .eyebrow { font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-3); font-weight: 600; margin: 0 0 14px; }
+  .vB-grid h1 {
+    font-size: clamp(28px, 3.6vw, 42px); line-height: 1.15; font-weight: 700; margin: 0; color: var(--white-800);
+    max-width: 480px;
+  }
+  .vB-grid h1 em { font-style: normal; color: var(--accent-3); }
+  .vB-grid p.sub { margin: 16px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--white-500); max-width: 460px; }
+  .stat-row { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
+  .stat-card {
+    border: 1px solid var(--black-300); background: var(--black-200); border-radius: 10px;
+    padding: 10px 14px; min-width: 128px;
+  }
+  .stat-card .k { font-size: 13px; font-weight: 600; color: var(--white-800); }
+  .stat-card .d { font-size: 11.5px; color: var(--white-500); margin-top: 2px; }
+
+  .term {
+    border: 1px solid var(--black-300); border-radius: 12px; overflow: hidden; background: #0d0f11;
+    box-shadow: 0 20px 60px -25px rgba(0,0,0,0.8);
+  }
+  .term-bar { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--black-200); border-bottom: 1px solid var(--black-300); }
+  .term-bar span { width: 9px; height: 9px; border-radius: 999px; background: var(--black-500); }
+  .term-bar .name { margin-left: 6px; font-size: 11.5px; color: var(--white-500); }
+  .term-body { padding: 18px 18px 22px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; line-height: 1.85; color: var(--white-600); min-height: 180px; }
+  .term-body .p { color: var(--accent-3); }
+  .term-body .ok { color: var(--accent); }
+  .term-line { white-space: pre; }
+  .caret { display: inline-block; width: 7px; height: 14px; background: var(--accent-3); vertical-align: -2px; animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* =========================================================
+     Variant C — Minimal centered / serif
+     ========================================================= */
+  .vC {
+    height: 100%; position: relative;
+    background:
+      radial-gradient(700px 420px at 50% 30%, rgba(133,161,106,0.16), transparent 65%),
+      var(--black-100);
+    display: flex; align-items: center; justify-content: center; text-align: center;
+  }
+  .vC-inner { max-width: 640px; padding: 0 24px; }
+  .vC .tag { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--white-500); margin-bottom: 22px; }
+  .vC h1 { font-size: clamp(40px, 7vw, 76px); font-style: italic; color: var(--white); margin: 0; line-height: 1.05; }
+  .vC p.sub { margin: 18px auto 0; max-width: 460px; font-size: 16px; color: var(--white-500); font-family: 'General Sans', sans-serif; }
+  .vC-cta {
+    margin: 30px auto 0; display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #0B0C0E; font-weight: 600; font-size: 14px;
+    padding: 12px 22px; border-radius: 999px; cursor: pointer; border: none;
+    transition: transform .12s ease;
+  }
+  .vC-cta:active { transform: scale(0.96); }
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+
+<div class="toolbar">
+  <h1>Hero concepts</h1>
+  <span class="hint">3 directions, pick or mix</span>
+  <div class="segmented" role="tablist" aria-label="Hero variant">
+    <button type="button" aria-pressed="true" data-variant="a"><span class="dot"></span>A · Refined current</button>
+    <button type="button" aria-pressed="false" data-variant="b"><span class="dot"></span>B · Split + terminal</button>
+    <button type="button" aria-pressed="false" data-variant="c"><span class="dot"></span>C · Minimal serif</button>
+  </div>
+  <div class="segmented" role="tablist" aria-label="Device size">
+    <button type="button" aria-pressed="true" data-device="desktop"><span class="dot"></span>Desktop</button>
+    <button type="button" aria-pressed="false" data-device="mobile"><span class="dot"></span>Mobile</button>
+  </div>
+</div>
+
+<main>
+  <div style="width:100%; max-width:1180px;">
+    <div class="caption" id="caption-a">
+      <p><strong>A · Refined current</strong> — closest to what's live: same video/poster background and copy, plus an "open to internships" status pill and a scroll cue so the fold reads as more alive.</p>
+    </div>
+    <div class="caption" id="caption-b" style="display:none">
+      <p><strong>B · Split + terminal</strong> — headline and CTAs on the left, a small animated terminal panel on the right that shows (not tells) "infrastructure for AI systems." Stacks to a single column on mobile.</p>
+    </div>
+    <div class="caption" id="caption-c" style="display:none">
+      <p><strong>C · Minimal serif</strong> — quieter, centered, editorial. Leans on the Instrument Serif display face already in the design system instead of a background photo/video.</p>
+    </div>
+
+    <div class="frame-wrap" data-device="desktop" id="frame">
+      <div class="browser-chrome">
+        <div class="browser-bar">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">esequiellinares.dev</div>
+        </div>
+        <div class="stage">
+
+          <!-- Variant A -->
+          <section class="variant is-active" id="variant-a">
+            <div class="vA-bg"></div>
+            <div class="vA-glow"></div>
+            <div class="vA-scrim"></div>
+            <div class="vA-content">
+              <h1>Esequiel Linares</h1>
+              <p class="sub">CS @ Purdue &apos;28 · Former Software Engineering Intern at JPMorgan Chase · I build infrastructure for AI systems that actually run in production.</p>
+              <div class="cta-row">
+                <button class="btn-primary" type="button">See my work</button>
+                <button class="btn-outline" type="button">Resume</button>
+              </div>
+            </div>
+            <div class="scroll-cue">Scroll to explore <span class="arrow">↓</span></div>
+          </section>
+
+          <!-- Variant B -->
+          <section class="variant" id="variant-b">
+            <div class="vB">
+              <div class="vB-grid">
+                <div>
+                  <h1>I build <em>infrastructure</em> for AI systems that actually run in production.</h1>
+                  <p class="sub">CS @ Purdue &apos;28 · Former Software Engineering Intern at JPMorgan Chase.</p>
+                  <div class="cta-row">
+                    <button class="btn-primary" type="button" style="background:var(--accent-3); color:#0B0C0E;">See my work</button>
+                    <button class="btn-outline" type="button">Resume</button>
+                  </div>
+                </div>
+                <div class="term">
+                  <div class="term-bar"><span></span><span></span><span></span><span class="name">status.sh</span></div>
+                  <div class="term-body" id="term-body"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Variant C -->
+          <section class="variant" id="variant-c">
+            <div class="vC">
+              <div class="vC-inner">
+                <div class="tag">Software Engineer · Purdue '28</div>
+                <h1>Esequiel Linares</h1>
+                <p class="sub">Software Engineering Intern at JPMorgan Chase. I build infrastructure for AI systems that actually run in production.</p>
+                <button class="vC-cta" type="button">View my work →</button>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const variantButtons = document.querySelectorAll('[data-variant]');
+  const deviceButtons = document.querySelectorAll('[data-device]');
+  const frame = document.getElementById('frame');
+  const captions = { a: document.getElementById('caption-a'), b: document.getElementById('caption-b'), c: document.getElementById('caption-c') };
+
+  variantButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.variant;
+      variantButtons.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      document.querySelectorAll('.variant').forEach(v => v.classList.remove('is-active'));
+      document.getElementById('variant-' + key).classList.add('is-active');
+      Object.entries(captions).forEach(([k, el]) => { el.style.display = (k === key) ? '' : 'none'; });
+      if (key === 'b') restartTerminal();
+    });
+  });
+
+  deviceButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      deviceButtons.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      frame.dataset.device = btn.dataset.device;
+    });
+  });
+
+  // Lightweight looping "typing" effect for the Variant B terminal panel.
+  const termBody = document.getElementById('term-body');
+  const script = [
+    { text: '$ whoami', cls: 'p' },
+    { text: 'esequiel-linares', cls: '' },
+    { text: '$ deploy --env=prod', cls: 'p' },
+    { text: '✓ infra healthy', cls: 'ok' },
+    { text: '✓ p99 latency 32ms', cls: 'ok' },
+    { text: '✓ ai pipeline: running', cls: 'ok' },
+  ];
+  let termTimer = null;
+
+  function restartTerminal() {
+    clearTimeout(termTimer);
+    termBody.innerHTML = '';
+    typeScript(0, '');
+  }
+
+  function typeScript(lineIndex, built) {
+    if (lineIndex >= script.length) {
+      termBody.innerHTML = built + '<span class="caret"></span>';
+      termTimer = setTimeout(() => typeScript(0, ''), 2200);
+      return;
+    }
+    const line = script[lineIndex];
+    let charIndex = 0;
+    const typeChar = () => {
+      charIndex++;
+      const partial = built + '<div class="term-line ' + line.cls + '">' + line.text.slice(0, charIndex) + '<span class="caret"></span></div>';
+      termBody.innerHTML = partial;
+      if (charIndex < line.text.length) {
+        termTimer = setTimeout(typeChar, 22);
+      } else {
+        const finished = built + '<div class="term-line ' + line.cls + '">' + line.text + '</div>';
+        termTimer = setTimeout(() => typeScript(lineIndex + 1, finished), 260);
+      }
+    };
+    typeChar();
+  }
+
+  restartTerminal();
+</script>

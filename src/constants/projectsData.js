@@ -21,8 +21,7 @@ export const tier1Projects = [
       type: 'photos',
       items: [
         { id: '1', src: '/projects/reachy/reachy1.jpeg', alt: '[PLACEHOLDER ALT]', caption: '[PLACEHOLDER CAPTION]' },
-        { id: '2', src: '/projects/reachy/reachy2.jpeg', alt: '[PLACEHOLDER ALT]', caption: '[PLACEHOLDER CAPTION]' },
-        { id: '3', src: '/projects/reachy/reachy3.jpeg', alt: '[PLACEHOLDER ALT]', caption: '[PLACEHOLDER CAPTION]' },
+        { id: '4', src: '/projects/reachy/reachy4.jpeg', alt: '[PLACEHOLDER ALT]', caption: '[PLACEHOLDER CAPTION]' },
       ],
     },
   },
@@ -40,7 +39,15 @@ export const tier1Projects = [
     live: null,
     media: {
       type: 'photos',
-      items: [],
+      items: [
+        {
+          id: '1',
+          src: '/projects/extended-pcmdm/pcmdm-demo-poster.jpg',
+          video: '/projects/extended-pcmdm/pcmdm-demo.mp4',
+          alt: '[PLACEHOLDER ALT]',
+          caption: '[PLACEHOLDER CAPTION]',
+        },
+      ],
     },
   },
   {

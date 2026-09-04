@@ -1,44 +1,44 @@
 export const photos = [
   {
-    src: '/about/photo-1.jpg',
-    alt: '[PLACEHOLDER ALT]',
-    caption: '[PLACEHOLDER CAPTION]',
-    span: 'lg',
+    src: '/about/mountains.jpeg',
+    alt: 'Mountains at El Hato Verde, Antigua, Guatemala',
+    caption: 'El Hato Verde, Antigua, Guatemala',
+    rotate: -2.5,
   },
   {
-    src: '/about/photo-2.jpg',
-    alt: '[PLACEHOLDER ALT]',
-    caption: '[PLACEHOLDER CAPTION]',
-    span: 'sm',
+    src: '/about/girlfriend.jpeg',
+    alt: 'Tatiana',
+    caption: 'Tatiana',
+    rotate: 2,
   },
   {
-    src: '/about/photo-3.jpg',
-    alt: '[PLACEHOLDER ALT]',
-    caption: '[PLACEHOLDER CAPTION]',
-    span: 'md',
+    src: '/about/mog.jpeg',
+    alt: 'Lake Atitlán, Guatemala',
+    caption: 'Lake Atitlán, Guatemala',
+    rotate: -1.5,
   },
   {
-    src: '/about/photo-4.jpg',
-    alt: '[PLACEHOLDER ALT]',
-    caption: '[PLACEHOLDER CAPTION]',
-    span: 'sm',
+    src: '/about/cat.jpeg',
+    alt: 'My cat, Tyson',
+    caption: 'Tyson',
+    rotate: 3,
   },
   {
-    src: '/about/photo-5.jpg',
-    alt: '[PLACEHOLDER ALT]',
-    caption: '[PLACEHOLDER CAPTION]',
-    span: 'md',
+    src: '/about/guitar.jpeg',
+    alt: 'Playing a Stratocaster at the Chicago Music Exchange',
+    caption: 'Chicago Music Exchange',
+    rotate: -2,
   },
 ];
 
 export const facts = [
   {
     label: 'Sudoku ranking',
-    value: '[PLACEHOLDER]',
+    value: 'Grandmaster · Top 1% best time',
   },
   {
     label: 'Guitar',
-    value: '[PLACEHOLDER]',
+    value: 'PRS SE Custom 24',
   },
   {
     label: 'Programs',
@@ -46,12 +46,10 @@ export const facts = [
   },
   {
     label: 'Watching',
-    value: '[TITLE 1], [TITLE 2], [TITLE 3], [TITLE 4], [TITLE 5]',
+    value: 'Gravity Falls',
+  },
+  {
+    label: 'Favorites',
+    value: 'Better Call Saul · Star Wars: A New Hope · Spider-Man 2 · Rain Man · Forrest Gump',
   },
 ];
-
-export const nowPlaying = {
-  art: '/about/now-playing.jpg',
-  track: '[TRACK NAME]',
-  artist: '[ARTIST NAME]',
-};
