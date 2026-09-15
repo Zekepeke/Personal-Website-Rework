@@ -6,12 +6,6 @@ export const photos = [
     rotate: -2.5,
   },
   {
-    src: '/about/girlfriend.jpeg',
-    alt: 'Tatiana',
-    caption: 'The amazing and cool Tatiana',
-    rotate: 2,
-  },
-  {
     src: '/about/mog.jpeg',
     alt: 'Lake Atitlán, Guatemala',
     caption: 'Lake Atitlán, Guatemala',
