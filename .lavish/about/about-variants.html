@@ -1,0 +1,180 @@
+<title>About Variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black-100: #0B0C0E; --black-200: #141619; --black-300: #1D2025; --black-500: #2A2E35;
+    --white-500: #9BA1A9; --white-600: #C6CAD1; --white-800: #F2F3F5;
+    --accent: #85A16A; --accent-2: #A99BD4; --bg-page: #121212;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg-page); color: var(--white-800); font-family: 'Inter', system-ui, sans-serif; margin: 0; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px 120px; }
+  .banner { background: var(--black-200); border: 1px solid var(--black-300); border-radius: 10px; padding: 16px 20px; font-size: 13px; line-height: 1.6; color: var(--white-600); margin-bottom: 40px; }
+  .banner b { color: var(--white-800); }
+  h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 40px; margin: 0 0 8px; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .opt { margin-bottom: 56px; min-width: 0; }
+  .opt-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+  .opt-tag { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 30px; margin: 0; }
+  .opt-desc { font-size: 13px; color: var(--white-600); max-width: 680px; line-height: 1.6; margin: 0 0 8px; }
+  .cost { font-size: 12px; color: var(--white-500); margin: 0 0 20px; }
+  .cost b { color: var(--white-600); font-weight: 600; }
+  .stage { background: var(--black-100); border: 1px solid var(--black-300); border-radius: 12px; padding: 32px 28px; min-width: 0; overflow: hidden; }
+
+  /* shared polaroid */
+  .pol { background: var(--white-800); border: 8px solid var(--white-800); box-shadow: inset 0 0 0 1px rgba(0,0,0,.15), 0 6px 16px rgba(0,0,0,.35); transform: rotate(var(--rot,0deg)); transition: transform 250ms ease-out; display: flex; flex-direction: column; }
+  .pol:hover { transform: rotate(0) scale(1.03); z-index: 5; }
+  .pol img { width: 100%; display: block; }
+  .pol figcaption { font-family: 'Caveat', cursive; font-size: 19px; line-height: 1.2; color: var(--black-200); text-align: center; padding: 8px 6px 4px; }
+  figure { margin: 0; }
+
+  /* A: editorial */
+  .a-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 40px; align-items: start; }
+  .a-intro { font-family: 'Instrument Serif', serif; font-size: 30px; line-height: 1.2; margin: 0 0 24px; }
+  .a-intro em { color: var(--accent); font-style: italic; }
+  .a-list { margin: 0; padding: 0; list-style: none; }
+  .a-list li { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; padding: 12px 0; border-top: .5px solid var(--black-300); font-size: 14px; }
+  .a-list li:first-child { border-top: none; }
+  .a-list span:first-child { color: var(--white-500); font-size: 12px; }
+  .a-photos { position: relative; height: 420px; }
+  .a-photos .pol { position: absolute; width: 46%; }
+  .a-photos .p1 { left: 0; top: 0; } .a-photos .p2 { right: 0; top: 40px; }
+  .a-photos .p3 { left: 12%; bottom: 0; width: 38%; } .a-photos .p4 { right: 4%; bottom: -10px; width: 36%; }
+
+  /* B: click stack */
+  .b-stack { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: center; }
+  .deck { position: relative; aspect-ratio: 4/5; cursor: pointer; }
+  .deck .card { position: absolute; inset: 0; transition: transform 350ms cubic-bezier(.2,.8,.2,1), opacity 250ms; }
+  .deck .card:nth-child(1) { transform: rotate(-5deg) translate(-14px, 6px); }
+  .deck .card:nth-child(2) { transform: rotate(4deg) translate(12px, 4px); }
+  .deck .card:nth-child(3) { transform: rotate(-1.5deg); }
+  .deck .card .pol { height: 100%; transform: none; }
+  .deck .card .pol img { flex: 1; min-height: 0; object-fit: cover; }
+  .deck:hover .card:nth-child(3) { transform: rotate(0) translateY(-6px); }
+  .hint { font-size: 12px; color: var(--white-500); margin-top: 18px; text-align: center; }
+  .b-detail h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 28px; margin: 0 0 6px; }
+  .b-detail p { color: var(--white-600); font-size: 14px; line-height: 1.6; margin: 0 0 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-size: 12px; border: 1px solid var(--black-500); border-radius: 999px; padding: 5px 12px; color: var(--white-600); }
+  .chip.on { border-color: var(--accent); color: var(--accent); background: rgba(133,161,106,.1); }
+
+  /* C: bento */
+  .bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 120px; gap: 12px; }
+  .tile { background: var(--black-200); border: 1px solid var(--black-300); border-radius: 14px; padding: 16px; overflow: hidden; position: relative; min-width: 0; }
+  .tile .k { font-size: 11px; color: var(--white-500); margin-bottom: 6px; }
+  .tile .v { font-size: 15px; line-height: 1.35; }
+  .tile.img { padding: 0; }
+  .tile.img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tile.img .cap { position: absolute; left: 10px; bottom: 8px; font-family: 'Caveat', cursive; font-size: 20px; text-shadow: 0 1px 6px rgba(0,0,0,.8); }
+  .t-big { grid-column: span 2; grid-row: span 3; } .t-wide { grid-column: span 2; } .t-tall { grid-row: span 2; }
+  .big-num { font-family: 'Instrument Serif', serif; font-size: 44px; color: var(--accent); line-height: 1; }
+
+  .choose { background: var(--black-200); border: 1px solid var(--black-300); border-radius: 12px; padding: 20px 22px; }
+  .choose label { display: block; font-size: 14px; padding: 6px 0; cursor: pointer; }
+  .choose input[type=radio] { accent-color: var(--accent); margin-right: 8px; }
+  .choose textarea { width: 100%; background: var(--black-100); color: var(--white-800); border: 1px solid var(--black-500); border-radius: 8px; padding: 10px; font: inherit; font-size: 13px; margin-top: 10px; min-height: 64px; }
+  .btn { background: var(--accent); color: var(--black-100); border: 0; border-radius: 6px; padding: 10px 18px; font-weight: 600; font-size: 13px; cursor: pointer; margin-top: 12px; }
+  .status { font-size: 12px; color: var(--white-500); margin-top: 10px; min-height: 16px; }
+
+  @media (max-width: 800px) {
+    .a-grid, .b-stack { grid-template-columns: minmax(0, 1fr); }
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .t-big { grid-column: span 2; }
+    .a-photos { height: 380px; }
+  }
+</style>
+
+<div class="wrap">
+  <div class="banner"><b>Design source:</b> your site's own tokens (black/white scale, #85A16A accent, Instrument Serif, Caveat, polaroid frames). Inter stands in for General Sans. Three directions for the About section. Annotate anything, then pick one at the bottom.</div>
+
+  <h1>About, three ways</h1>
+  <p class="opt-desc" style="margin-bottom:40px">Today: a heading, a masonry of polaroids, then a flat facts list. It reads as a list of stuff, not as you. These variants each give it a point of view.</p>
+
+  <!-- A -->
+  <section class="opt">
+    <div class="opt-head"><span class="opt-tag mono">Option A</span><h2>Editorial spread</h2></div>
+    <p class="opt-desc">A real intro sentence on the left with the facts as an index beneath it. Photos scatter like prints on a desk on the right. Closest to what you have, but with a voice.</p>
+    <p class="cost"><b>Cost:</b> needs real intro copy from you. Photo count is fixed at about four, so extras get dropped.</p>
+    <div class="stage">
+      <div class="a-grid">
+        <div>
+          <p class="a-intro">I'm Esequiel. I build things that <em>move</em>, play guitar a little too loudly, and solve sudoku faster than is healthy.</p>
+          <ul class="a-list">
+            <li><span class="mono">Sudoku</span><span>Grandmaster · Top 1% best time</span></li>
+            <li><span class="mono">Guitar</span><span>PRS SE Custom 24</span></li>
+            <li><span class="mono">Programs</span><span>MLT Career Prep Fellow · Capital One First Gen Focus</span></li>
+            <li><span class="mono">Watching</span><span>Gravity Falls</span></li>
+            <li><span class="mono">Favorites</span><span>Better Call Saul · A New Hope · Spider-Man 2 · Rain Man · Forrest Gump</span></li>
+          </ul>
+        </div>
+        <div class="a-photos">
+          <figure class="pol p1" style="--rot:-3deg"><img src="mountains.jpeg" alt=""><figcaption>Antigua</figcaption></figure>
+          <figure class="pol p2" style="--rot:2.5deg"><img src="mog.jpeg" alt=""><figcaption>Lake Atitlán</figcaption></figure>
+          <figure class="pol p3" style="--rot:-1.5deg"><img src="cat.jpeg" alt=""><figcaption>Tyson</figcaption></figure>
+          <figure class="pol p4" style="--rot:3deg"><img src="guitar.jpeg" alt=""><figcaption>Chicago Music Exchange</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="opt">
+    <div class="opt-head"><span class="opt-tag mono">Option B</span><h2>Click stack</h2></div>
+    <p class="opt-desc">The TODO.md idea. A deck of polaroids you click through, with a caption panel that changes per card. Facts become chips grouped by theme, which is where cooking and favorite food can live later.</p>
+    <p class="cost"><b>Cost:</b> new interactive component with state. Content hides behind clicks, so it is the most playful and the least scannable.</p>
+    <div class="stage">
+      <div class="b-stack">
+        <div>
+          <div class="deck" id="deck" data-lavish-action>
+            <div class="card"><figure class="pol"><img src="mog.jpeg" alt=""><figcaption>Lake Atitlán</figcaption></figure></div>
+            <div class="card"><figure class="pol"><img src="mountains.jpeg" alt=""><figcaption>Antigua</figcaption></figure></div>
+            <div class="card"><figure class="pol"><img src="cat.jpeg" alt=""><figcaption>Tyson</figcaption></figure></div>
+          </div>
+          <p class="hint mono">click to shuffle</p>
+        </div>
+        <div class="b-detail">
+          <h3>Tyson</h3>
+          <p>Short story or detail per card goes here. This is the "more personal detail" slot from your TODO.</p>
+          <div class="chips">
+            <span class="chip on">Music</span><span class="chip">Watching</span><span class="chip">Puzzles</span><span class="chip">Food</span>
+          </div>
+          <p style="margin-top:16px">PRS SE Custom 24 · Stratocaster at Chicago Music Exchange</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="opt">
+    <div class="opt-head"><span class="opt-tag mono">Option C</span><h2>Bento board</h2></div>
+    <p class="opt-desc">Photos and facts share one grid. Each fact becomes a tile with its own weight, and Sudoku gets a big number. The Spotify "Currently" widget slots in as a tile too.</p>
+    <p class="cost"><b>Cost:</b> drops the tilted polaroid look for cropped photos, so the handwritten charm shrinks. Best scannability.</p>
+    <div class="stage">
+      <div class="bento">
+        <div class="tile img t-big"><img src="mountains.jpeg" alt=""><span class="cap">Antigua, Guatemala</span></div>
+        <div class="tile"><div class="k mono">Sudoku</div><div class="big-num">Top 1%</div></div>
+        <div class="tile"><div class="k mono">Guitar</div><div class="v">PRS SE Custom 24</div></div>
+        <div class="tile img t-tall"><img src="cat.jpeg" alt=""><span class="cap">Tyson</span></div>
+        <div class="tile"><div class="k mono">Watching</div><div class="v">Gravity Falls</div></div>
+        <div class="tile t-wide"><div class="k mono">Currently playing</div><div class="v" style="color:var(--accent-2)">Spotify now-playing tile</div></div>
+        <div class="tile img t-wide"><img src="guitar.jpeg" alt="" style="object-position:center 40%"><span class="cap">Chicago Music Exchange</span></div>
+        <div class="tile t-wide"><div class="k mono">Favorites</div><div class="v">Better Call Saul · A New Hope · Spider-Man 2 · Rain Man · Forrest Gump</div></div>
+        <div class="tile t-wide"><div class="k mono">Programs</div><div class="v">MLT Career Prep Fellow · Capital One First Gen Focus</div></div>
+      </div>
+    </div>
+  </section>
+
+  <form class="choose" data-lavish-question="about-variant" onsubmit="event.preventDefault(); const f = new FormData(event.currentTarget); const c = f.get('v'); const n = f.get('n'); if (!c) { document.getElementById('st').textContent = 'Pick one first.'; return; } window.lavish.queuePrompt('Build About variant: ' + c + (n ? '. Notes: ' + n : ''), { tag: 'choice', text: 'Variant: ' + c, element: event.currentTarget, queueKey: 'about-variant', data: { question: 'about-variant', answer: c, notes: n } }); document.getElementById('st').textContent = 'Queued: ' + c + '. Press Send to Agent to deliver.';">
+    <div style="font-weight:600;margin-bottom:6px">Which direction should I build?</div>
+    <label><input type="radio" name="v" value="A - Editorial spread">A - Editorial spread</label>
+    <label><input type="radio" name="v" value="B - Click stack">B - Click stack</label>
+    <label><input type="radio" name="v" value="C - Bento board">C - Bento board</label>
+    <label><input type="radio" name="v" value="Mix - see notes">Mix (explain below)</label>
+    <textarea name="n" placeholder="Notes, copy for the intro, tweaks..."></textarea>
+    <button class="btn" type="submit">Queue answer</button>
+    <div class="status" id="st"></div>
+  </form>
+</div>
