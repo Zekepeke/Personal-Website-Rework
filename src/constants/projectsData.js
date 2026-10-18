@@ -5,9 +5,9 @@
 
 export const tier1Projects = [
   {
-    id: 'reachy-mini',
+    id: 'estovam',
     index: 1,
-    title: 'Reachy Mini',
+    title: 'Estovam',
     role: 'Solo project',
     org: 'Independent',
     year: '2025',
@@ -22,7 +22,7 @@ export const tier1Projects = [
         {
           id: '1',
           src: '/projects/reachy/reachy1.jpeg',
-          alt: 'The first 3D-printed prototype of the Reachy Mini head shell, mid-assembly on a workbench',
+          alt: 'The first 3D-printed prototype of the Estovam head shell, mid-assembly on a workbench',
           caption: 'First prototype',
         },
         {
